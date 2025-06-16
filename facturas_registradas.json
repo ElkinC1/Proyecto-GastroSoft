@@ -1,0 +1,157 @@
+[
+    {
+        "numero_factura": "FACT-00003",
+        "fecha": "2025-06-03 02:12:33",
+        "cliente": "Cliente Final",
+        "cedula": "XXXXXXX",
+        "platos": [
+            {
+                "nombre": "pizza",
+                "precio": 10.5,
+                "cantidad": 10
+            }
+        ],
+        "total_con_iva": 117.6
+    },
+    {
+        "numero_factura": "FACT-00001",
+        "fecha": "2025-06-03 03:20:54",
+        "cliente": "Cliente Final",
+        "cedula": "XXXXXXX",
+        "platos": [
+            {
+                "nombre": "Seco de pollo",
+                "precio": 2.5,
+                "cantidad": 1
+            }
+        ],
+        "total_con_iva": 2.8
+    },
+    {
+        "numero_factura": "FACT-00002",
+        "fecha": "2025-06-03 04:06:16",
+        "cliente": "Cliente Final",
+        "cedula": "XXXXXXX",
+        "platos": [
+            {
+                "nombre": "pavo",
+                "precio": 4.0,
+                "cantidad": 2
+            }
+        ],
+        "total_con_iva": 8.96
+    },
+    {
+        "numero_factura": "FACT-00003",
+        "fecha": "2025-06-03 08:03:25",
+        "cliente": "Cliente Final",
+        "cedula": "XXXXXXX",
+        "platos": [
+            {
+                "nombre": "Seco de pollo",
+                "precio": 2.5,
+                "cantidad": 2
+            }
+        ],
+        "total_con_iva": 5.6
+    },
+    {
+        "numero_factura": "FACT-00004",
+        "fecha": "2025-06-03 08:15:44",
+        "cliente": "Cliente Final",
+        "cedula": "XXXXXXX",
+        "platos": [
+            {
+                "nombre": "pavo",
+                "precio": 23.0,
+                "cantidad": 2
+            }
+        ],
+        "total_con_iva": 51.519999999999996
+    },
+    {
+        "numero_factura": "FACT-00005",
+        "fecha": "2025-06-03 08:48:57",
+        "cliente": "Cliente Final",
+        "cedula": "XXXXXXX",
+        "platos": [
+            {
+                "nombre": "pato al horno",
+                "precio": 32.0,
+                "cantidad": 1
+            }
+        ],
+        "total_con_iva": 35.84
+    },
+    {
+        "numero_factura": "FACT-00006",
+        "fecha": "2025-06-03 19:11:41",
+        "cliente": "Lorena",
+        "cedula": 1250544572,
+        "platos": [
+            {
+                "nombre": "pato al horno",
+                "precio": 32.0,
+                "cantidad": 3
+            },
+            {
+                "nombre": "pollo al horno",
+                "precio": 23.0,
+                "cantidad": 2
+            },
+            {
+                "nombre": "guatita",
+                "precio": 3.25,
+                "cantidad": 1
+            }
+        ],
+        "total_con_iva": 162.68
+    },
+    {
+        "numero_factura": "FACT-00007",
+        "fecha": "2025-06-03 19:13:01",
+        "cliente": "Cliente Final",
+        "cedula": "XXXXXXX",
+        "platos": [
+            {
+                "nombre": "pato al horno",
+                "precio": 32.0,
+                "cantidad": 5
+            }
+        ],
+        "total_con_iva": 179.2
+    },
+    {
+        "numero_factura": "FACT-00008",
+        "fecha": "2025-06-15 20:16:00",
+        "cliente": "hol",
+        "cedula": 121415161,
+        "platos": [
+            {
+                "nombre": "pato al horno",
+                "precio": 32.0,
+                "cantidad": 2
+            },
+            {
+                "nombre": "pollo al horno",
+                "precio": 23.0,
+                "cantidad": 2
+            }
+        ],
+        "total_con_iva": 123.2
+    },
+    {
+        "numero_factura": "FACT-00009",
+        "fecha": "2025-06-15 20:21:09",
+        "cliente": "Cliente Final",
+        "cedula": "XXXXXXX",
+        "platos": [
+            {
+                "nombre": "pato al horno",
+                "precio": 32.0,
+                "cantidad": 1
+            }
+        ],
+        "total_con_iva": 35.84
+    }
+]

@@ -1,0 +1,37 @@
+[
+    {
+        "Usuario": "1",
+        "Clave": "1",
+        "Marcador": "Admin"
+    },
+    {
+        "Usuario": "Borys",
+        "Clave": "syrob1",
+        "Marcador": "Empleado"
+    },
+    {
+        "Usuario": "Vielka",
+        "Clave": "vielka123",
+        "Marcador": "Empleado"
+    },
+    {
+        "Usuario": "Jose",
+        "Clave": "esoj",
+        "Marcador": "Empleado"
+    },
+    {
+        "Usuario": "Elkin",
+        "Clave": "nikle",
+        "Marcador": "Empleado"
+    },
+    {
+        "Usuario": "",
+        "Clave": "234567",
+        "Marcador": "Clave"
+    },
+    {
+        "Usuario": "Lorena",
+        "Clave": "lorelore",
+        "Marcador": "Admin"
+    }
+]

@@ -1,0 +1,44 @@
+[
+    {
+        "Nombre": "Elkin",
+        "Apellido": "Cantos",
+        "Cedula": "1317159042",
+        "Direccion": "Cddl montalvan"
+    },
+    {
+        "Nombre": "Borys",
+        "Apellido": "Macias",
+        "Cedula": "1315900181",
+        "Direccion": "Barbasquillo"
+    },
+    {
+        "Nombre": "Jose",
+        "Apellido": "Macias",
+        "Cedula": "1350153670",
+        "Direccion": "Flavio reyes"
+    },
+    {
+        "Nombre": "Vielka",
+        "Apellido": "Borja",
+        "Cedula": "1314387265",
+        "Direccion": "La quadra"
+    },
+    {
+        "Nombre": "Elkin",
+        "Apellido": "Delgado",
+        "Cedula": "1313713131",
+        "Direccion": "La quadra"
+    },
+    {
+        "nombre": "Lorena",
+        "cedula": 1250544572,
+        "correo": "lorelore@gmail.com",
+        "direccion": "Montalvan"
+    },
+    {
+        "nombre": "hol",
+        "cedula": 121415161,
+        "correo": "aveoc@gmail.com",
+        "direccion": "rocafuerte"
+    }
+]

@@ -1,0 +1,16 @@
+FACTURA DE COMPRA
+Número de Factura: FACT-00005
+Fecha: 2025-06-03 08:48:57
+
+Datos del Cliente:
+Nombre: Cliente Final
+Cédula: XXXXXXX
+Dirección: Dirección Genérica
+Correo: cliente@final.com
+
+Detalle del Pedido:
+- pato al horno (x1) - $32.00 c/u
+
+Subtotal: $32.00
+IVA (12%): $3.84
+Total a Pagar: $35.84

@@ -1,0 +1,17 @@
+[
+    {
+        "Nombre del plato": "pato al horno",
+        "Precio del plato": 32.0,
+        "Codigo del plato": 15
+    },
+    {
+        "Nombre del plato": "pollo al horno",
+        "Precio del plato": 23.0,
+        "Codigo del plato": 123
+    },
+    {
+        "Nombre del plato": "guatita",
+        "Precio del plato": 3.25,
+        "Codigo del plato": 100
+    }
+]

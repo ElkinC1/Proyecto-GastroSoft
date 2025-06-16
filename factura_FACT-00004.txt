@@ -1,0 +1,16 @@
+FACTURA DE COMPRA
+Número de Factura: FACT-00004
+Fecha: 2025-06-03 08:15:44
+
+Datos del Cliente:
+Nombre: Cliente Final
+Cédula: XXXXXXX
+Dirección: Dirección Genérica
+Correo: cliente@final.com
+
+Detalle del Pedido:
+- pavo (x2) - $23.00 c/u
+
+Subtotal: $46.00
+IVA (12%): $5.52
+Total a Pagar: $51.52

@@ -1,0 +1,186 @@
+[
+    {
+        "numero_pedido": 1,
+        "fecha": "2025-06-03 03:20:49",
+        "platos_seleccionados": [
+            {
+                "nombre": "Seco de pollo",
+                "precio": 2.5,
+                "cantidad": 1
+            }
+        ],
+        "total_sin_iva": 2.5,
+        "iva_porcentaje": 12
+    },
+    {
+        "numero_pedido": 2,
+        "fecha": "2025-06-03 04:06:15",
+        "platos_seleccionados": [
+            {
+                "nombre": "pavo",
+                "precio": 4.0,
+                "cantidad": 2
+            }
+        ],
+        "total_sin_iva": 8.0,
+        "iva_porcentaje": 12
+    },
+    {
+        "numero_pedido": 3,
+        "fecha": "2025-06-03 08:03:22",
+        "platos_seleccionados": [
+            {
+                "nombre": "Seco de pollo",
+                "precio": 2.5,
+                "cantidad": 2
+            }
+        ],
+        "total_sin_iva": 5.0,
+        "iva_porcentaje": 12
+    },
+    {
+        "numero_pedido": 4,
+        "fecha": "2025-06-03 08:15:37",
+        "platos_seleccionados": [
+            {
+                "nombre": "pavo",
+                "precio": 23.0,
+                "cantidad": 2
+            }
+        ],
+        "total_sin_iva": 46.0,
+        "iva_porcentaje": 12
+    },
+    {
+        "numero_pedido": 5,
+        "fecha": "2025-06-03 08:16:09",
+        "platos_seleccionados": [
+            {
+                "nombre": "pizza",
+                "precio": 10.5,
+                "cantidad": 2
+            }
+        ],
+        "total_sin_iva": 21.0,
+        "iva_porcentaje": 12
+    },
+    {
+        "numero_pedido": 6,
+        "fecha": "2025-06-03 08:48:54",
+        "platos_seleccionados": [
+            {
+                "nombre": "pato al horno",
+                "precio": 32.0,
+                "cantidad": 1
+            }
+        ],
+        "total_sin_iva": 32.0,
+        "iva_porcentaje": 12
+    },
+    {
+        "numero_pedido": 7,
+        "fecha": "2025-06-03 09:11:50",
+        "platos_seleccionados": [
+            {
+                "nombre": "pollo al horno",
+                "precio": 23.0,
+                "cantidad": 1
+            }
+        ],
+        "total_sin_iva": 23.0,
+        "iva_porcentaje": 12
+    },
+    {
+        "numero_pedido": 8,
+        "fecha": "2025-06-03 19:09:48",
+        "platos_seleccionados": [
+            {
+                "nombre": "pato al horno",
+                "precio": 32.0,
+                "cantidad": 3
+            },
+            {
+                "nombre": "pollo al horno",
+                "precio": 23.0,
+                "cantidad": 2
+            },
+            {
+                "nombre": "guatita",
+                "precio": 3.25,
+                "cantidad": 1
+            }
+        ],
+        "total_sin_iva": 145.25,
+        "iva_porcentaje": 12
+    },
+    {
+        "numero_pedido": 9,
+        "fecha": "2025-06-03 19:12:59",
+        "platos_seleccionados": [
+            {
+                "nombre": "pato al horno",
+                "precio": 32.0,
+                "cantidad": 5
+            }
+        ],
+        "total_sin_iva": 160.0,
+        "iva_porcentaje": 12
+    },
+    {
+        "numero_pedido": 10,
+        "fecha": "2025-06-15 20:15:31",
+        "platos_seleccionados": [
+            {
+                "nombre": "pato al horno",
+                "precio": 32.0,
+                "cantidad": 2
+            },
+            {
+                "nombre": "pollo al horno",
+                "precio": 23.0,
+                "cantidad": 2
+            }
+        ],
+        "total_sin_iva": 110.0,
+        "iva_porcentaje": 12
+    },
+    {
+        "numero_pedido": 11,
+        "fecha": "2025-06-15 20:18:14",
+        "platos_seleccionados": [
+            {
+                "nombre": "pato al horno",
+                "precio": 32.0,
+                "cantidad": 1
+            }
+        ],
+        "total_sin_iva": 32.0,
+        "iva_porcentaje": 12
+    },
+    {
+        "numero_pedido": 12,
+        "fecha": "2025-06-15 20:20:48",
+        "platos_seleccionados": [
+            {
+                "nombre": "guatita",
+                "precio": 3.25,
+                "cantidad": 1
+            }
+        ],
+        "total_sin_iva": 3.25,
+        "iva_porcentaje": 12
+    },
+    {
+        "numero_pedido": 13,
+        "fecha": "2025-06-15 20:21:07",
+        "platos_seleccionados": [
+            {
+                "nombre": "pato al horno",
+                "precio": 32.0,
+                "cantidad": 1
+            }
+        ],
+        "total_sin_iva": 32.0,
+        "iva_porcentaje": 12
+    }
+]
