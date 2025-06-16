@@ -9,7 +9,7 @@ import tkinter as tk
 from tkinter import messagebox
 import json
 
-
+#primercambio
 #Manipulacion de ficheros Json
 def leer_datos(fichero):
     try:
