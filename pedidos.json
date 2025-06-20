@@ -182,5 +182,18 @@
         ],
         "total_sin_iva": 32.0,
         "iva_porcentaje": 12
+    },
+    {
+        "numero_pedido": 14,
+        "fecha": "2025-06-18 15:45:41",
+        "platos_seleccionados": [
+            {
+                "nombre": "pollo al horno",
+                "precio": 23.0,
+                "cantidad": 1
+            }
+        ],
+        "total_sin_iva": 23.0,
+        "iva_porcentaje": 12
     }
 ]

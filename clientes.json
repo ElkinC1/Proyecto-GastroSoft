@@ -40,5 +40,11 @@
         "cedula": 121415161,
         "correo": "aveoc@gmail.com",
         "direccion": "rocafuerte"
+    },
+    {
+        "nombre": "Melany",
+        "cedula": 1351447154,
+        "correo": "melany@gmail.com",
+        "direccion": "Jipijapa"
     }
 ]

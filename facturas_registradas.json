@@ -153,5 +153,19 @@
             }
         ],
         "total_con_iva": 35.84
+    },
+    {
+        "numero_factura": "FACT-00010",
+        "fecha": "2025-06-18 15:46:21",
+        "cliente": "Melany",
+        "cedula": 1351447154,
+        "platos": [
+            {
+                "nombre": "pollo al horno",
+                "precio": 23.0,
+                "cantidad": 1
+            }
+        ],
+        "total_con_iva": 25.759999999999998
     }
 ]

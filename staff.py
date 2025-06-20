@@ -81,9 +81,9 @@ class staff(Persona):
                         respuesta = messagebox.askyesno("Eliminar plato", f"¿Estas seguro de eliminar el plato: {plato['Nombre del plato']}, codigo:{plato['Codigo del plato']}?")
                         if respuesta:
                             datos.remove(plato)
-                            GastroSoft_principal.guardar_datos(datos)
+                            GastroSoft_principal.guardar_datos(datos,"platos.json")
                             messagebox.showinfo("Éxito", "El plato fue eliminado correctamente del menú.")
-                            codigo_plato.delete(0, tk.END)
+                            codigo.delete(0, tk.END)
                             return
                         else:
                             return

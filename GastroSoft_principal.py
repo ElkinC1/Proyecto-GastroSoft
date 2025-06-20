@@ -113,7 +113,7 @@ def coprincipal_1 ():
                 return
 
             for clave in datos:
-                if clave["Usuario"] == usuario1.title() and clave["Clave"]== clave1.lower():
+                if clave["Usuario"] == usuario1 and clave["Clave"]== clave1.lower():
                         if clave["Marcador"]=="Admin":
                              #La importacion se realiza dentro de la funcion para evitar problemas de importaciones ciclicas
                             import administrador

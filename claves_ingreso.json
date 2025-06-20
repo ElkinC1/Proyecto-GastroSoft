@@ -1,6 +1,6 @@
 [
     {
-        "Usuario": "1",
+        "Usuario": "admin",
         "Clave": "1",
         "Marcador": "Admin"
     },
@@ -26,12 +26,7 @@
     },
     {
         "Usuario": "",
-        "Clave": "234567",
+        "Clave": "123456",
         "Marcador": "Clave"
-    },
-    {
-        "Usuario": "Lorena",
-        "Clave": "lorelore",
-        "Marcador": "Admin"
     }
 ]
