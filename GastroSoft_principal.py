@@ -1,15 +1,9 @@
 #primer cambio
 from clientes import clientes
-from clientedatos import cdatos
-from clientefinal import cfinal
-import empleados
-from orden_pago import *
-from pedido import *
-from reporte import *
 import tkinter as tk
 from tkinter import messagebox
 import json
-
+from PIL import Image, ImageTk
 #primercambio
 #Manipulacion de ficheros Json
 def leer_datos(fichero):
@@ -19,9 +13,6 @@ def leer_datos(fichero):
     except FileNotFoundError:
         datos = []
     return datos
-def agregar_plato():
-     return
-
 def guardar_datos(datos,fichero):
     with open(fichero, 'w') as file:
         json.dump(datos, file, indent=4)
@@ -31,20 +22,13 @@ def guardar_datos(datos,fichero):
 def mostrar_como_cliente ():
     mostrar1= clientes("h","a",1,"s","d")
     mostrar1.ver_menu(Interfaz_clientes) #retorna la interfaz a la clase cliente
-#opciones
-def eliminar():
-    #si
-    return
-def modificar():
-    #si
-    return
-
 def salir():
     principal.destroy()
 
 def volver (Interfaz_Anterior,Interfaz_Actual):
         Interfaz_Actual.destroy()
         Interfaz_Anterior.deiconify()
+        Interfaz_Anterior.state('zoomed') #permite que la ventana anterior se maximize al momento de volver a aparecer
 def realizar_pedido():
     from pedido import Pedido
     from clientes import clientes
@@ -55,6 +39,8 @@ def realizar_pedido():
 
 #Ventana para los clientes
 def coprincipal_2 ():
+
+    
     principal.withdraw()  # Oculta la ventana principal
     global Interfaz_clientes
     Interfaz_Anterior=principal #guarda la ventana principal para volverla a mostrar 
@@ -62,7 +48,7 @@ def coprincipal_2 ():
     Interfaz_clientes.title("GatrosSoft")
     Interfaz_clientes.geometry("1280x720")
     Interfaz_clientes.configure(background='black')
-    
+    Interfaz_clientes.state('zoomed')
 
     Interfaz_Actual= Interfaz_clientes #Guarda la interfaz en la variable para luego poderla eliminar 
 
@@ -78,6 +64,7 @@ def coprincipal_2 ():
 Interfaz_Staff=None
 #Ventana para los del Staff
 def coprincipal_1 ():
+        
         global Interfaz_Staff
         
         principal.withdraw()  # Oculta la ventana principal
@@ -86,7 +73,7 @@ def coprincipal_1 ():
         Interfaz_Staff.title("GastroSoft")
         Interfaz_Staff.geometry("1280x720")
         Interfaz_Staff.configure(background='black')
-
+        Interfaz_Staff.state('zoomed')
         titulo = tk.Label(Interfaz_Staff, text="Staff", font=("Times New Roman", 45), background="black", fg="white")
         titulo.pack(pady=20)
        
@@ -144,18 +131,37 @@ def iniciar_principal():
     global principal
     principal = tk.Tk()
     principal.title("GastroSoft")
-    principal.geometry("1280x720")
-    principal.configure(background='black')
+    principal.geometry("1270x683")
+    principal.configure(background="#7A9CB8")
+    principal.state('zoomed')
 
-    titulo = tk.Label(principal, text="GastroSoft", font=("Times New Roman", 45), background="black", fg="white")
-    titulo.pack(pady=20)
+    # Cargar imagen de fondo
+    imagen_fondo = Image.open("Fondo_principal.jpg")  
+    imagen_fondo = imagen_fondo.resize((800, 700)) #Para el tamaño de la imagen
+    fondo_tk = ImageTk.PhotoImage(imagen_fondo)
 
-    boton6 = tk.Button(principal, text="1. Trabajadores", width=25, font=("Times New Roman", 10), command=coprincipal_1)
-    boton6.pack(pady=20)
-    boton1 = tk.Button(principal, text="2. Clientes", width=25, font=("Times New Roman", 10), command=coprincipal_2)
-    boton1.pack(pady=20)
-    boton4 = tk.Button(principal, text="3. Cerrar aplicación ", width=25, font=("Times New Roman", 10), command=salir)
-    boton4.pack(pady=20)
+    label_fondo = tk.Label(principal, image=fondo_tk)
+    label_fondo.image = fondo_tk  
+    label_fondo.pack(side="left") #Alinea la imagen a la izquierda
+
+
+    titulo = tk.Label(principal, text="GastroSoft", font=("Times New Roman", 45,"bold"), fg="#002031" , bg="#7A9CB8") #bg es para el fondo, fg para la fuente
+    titulo.place(x=950, y=65) #especifica la ubicacion del texto
+
+    # Permite ubicas los botones encima de la imagen
+    imagen_icono = Image.open("trabajadores.jpeg").resize((110, 100)) #aqui cargas la imagen
+    imagen_icono_tk = ImageTk.PhotoImage(imagen_icono) #aqui le agregas la funcion para integrarla a tkinter
+    boton1 = tk.Button(principal, text="1. Trabajadores", image=imagen_icono_tk, compound="top", font=("Times New Roman", 12),bg="#002031", fg="white", command=coprincipal_1)
+    boton1.place(x=920, y=200)
+
+    imagen_icono1 = Image.open("cliente.jpeg").resize((110, 100))
+    imagen_icono_tk1 = ImageTk.PhotoImage(imagen_icono1)
+    boton = tk.Button(principal, text="2. Clientes", image=imagen_icono_tk1, compound="top", font=("Times New Roman", 12),bg="#002031", fg="white",command=coprincipal_2)  
+    boton.place(x=1120, y=200)
+
+    boton3 = tk.Button(principal, text="3. Cerrar aplicación", width=25, font=("Times New Roman", 12),bg="#002031", fg="white", command=salir)
+    boton3.place(x=980, y=400)
+
     principal.mainloop()
 if __name__ == '__main__':
     iniciar_principal()
