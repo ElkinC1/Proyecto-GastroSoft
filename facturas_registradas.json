@@ -167,5 +167,19 @@
             }
         ],
         "total_con_iva": 25.759999999999998
+    },
+    {
+        "numero_factura": "FACT-00011",
+        "fecha": "2025-06-28 21:19:28",
+        "cliente": "Cliente Final",
+        "cedula": "XXXXXXX",
+        "platos": [
+            {
+                "nombre": "pato al horno",
+                "precio": 32.0,
+                "cantidad": 2
+            }
+        ],
+        "total_con_iva": 71.68
     }
 ]

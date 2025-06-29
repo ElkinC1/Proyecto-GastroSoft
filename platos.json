@@ -22,7 +22,11 @@
         "Precio del plato": 3.0,
         "Codigo del plato": 333,
         "Categoria del plato": "Almuerzo"
+    },
+    {
+        "Nombre del plato": "Jugo de limon",
+        "Precio del plato": 0.5,
+        "Codigo del plato": 900,
+        "Categoria del plato": "Bebidas"
     }
-
-    
 ]
