@@ -205,7 +205,7 @@ class staff(Persona):
             boton4.pack(pady=20)
             boton5= tk.Button(interfaz_edicion_platos, text="4. Crear categoría", width=25,fount=("Times New Roman",10), command=lambda:staff.Crear_categoria(interfaz_edicion_platos))
             boton5.pack(pady=20) 
-            boton6= tk.Button(interfaz_edicion_platos, text="5. Eliminar categoría", width=25,fount=("Times New Roman",10), command=lambda:staff.Eliminar_categoria(interfaz_edicion_platos))
+            boton6= tk.Button(interfaz_edicion_platos, text="5. Eliminar categoría", width=25,fount=("Times New Roman",10), command=lambda:staff.Eliminar_categorias(interfaz_edicion_platos))
             boton6.pack(pady=20) 
             boton2 = tk.Button(interfaz_edicion_platos, text="Volver", width=25, font=("Times New Roman", 10), command=lambda:volver1(interfaz_anterior,interfaz_edicion_platos))
             boton2.pack(pady=20)
