@@ -50,6 +50,14 @@ def coprincipal_2 ():
     Interfaz_clientes.configure(background='black')
     Interfaz_clientes.state('zoomed')
 
+    imagen_fondo_clientes = Image.open("Fondo2.jpg")  
+    imagen_fondo_clientes = imagen_fondo_clientes.resize((800, 700)) #Para el tamaño de la imagen
+    fondo_tk = ImageTk.PhotoImage(imagen_fondo_clientes)
+
+    label_fondo = tk.Label(Interfaz_clientes, image=fondo_tk)
+    label_fondo.image = fondo_tk  
+    label_fondo.pack(side="right") 
+
     Interfaz_Actual= Interfaz_clientes #Guarda la interfaz en la variable para luego poderla eliminar 
 
     titulo = tk.Label(Interfaz_clientes, text="Clientes", font=("Times New Roman", 45), background="black", fg="white")
@@ -132,7 +140,7 @@ def iniciar_principal():
     principal = tk.Tk()
     principal.title("GastroSoft")
     principal.geometry("1270x683")
-    principal.configure(background="#7A9CB8")
+    principal.configure(background="#A8B0B5")
     principal.state('zoomed')
 
     # Cargar imagen de fondo
@@ -145,8 +153,8 @@ def iniciar_principal():
     label_fondo.pack(side="left") #Alinea la imagen a la izquierda
 
 
-    titulo = tk.Label(principal, text="GastroSoft", font=("Times New Roman", 45,"bold"), fg="#002031" , bg="#7A9CB8") #bg es para el fondo, fg para la fuente
-    titulo.place(x=950, y=65) #especifica la ubicacion del texto
+    titulo = tk.Label(principal, text="GASTROSOFT", font=("Arial Black", 37,"bold"), fg="#B73939" , bg="#A8B0B5") #bg es para el fondo, fg para la fuente
+    titulo.place(x=900, y=65) #especifica la ubicacion del texto
 
     # Permite ubicas los botones encima de la imagen
     imagen_icono = Image.open("trabajadores.jpeg").resize((110, 100)) #aqui cargas la imagen
@@ -165,3 +173,4 @@ def iniciar_principal():
     principal.mainloop()
 if __name__ == '__main__':
     iniciar_principal()
+

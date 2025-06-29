@@ -105,11 +105,12 @@ class administrador(staff):
             interfaz_editar_empleados.title("GastroSoft Edición de empleados")
             interfaz_editar_empleados.geometry("600x500")
 
-            # Combobox de selección
+            # Combobox de seleccióm
             seleccion = tk.StringVar()
-            combo = ttk.Combobox(interfaz_editar_empleados, textvariable=seleccion, values=[emp["Usuario"] for emp in datos], state="readonly")
-            combo.set("Selecciona un usuario")
-            combo.pack(pady=10)
+            usuarios_visibles = [emp["Usuario"] for emp in datos if emp.get("Marcador") != "Clave"]
+            Seleccion_usuario = ttk.Combobox(interfaz_editar_empleados, textvariable=seleccion, values=usuarios_visibles, state="readonly")
+            Seleccion_usuario.set("Selecciona un usuario")
+            Seleccion_usuario.pack(pady=10)
 
             # Campos de edición
             usuario = tk.StringVar()
@@ -191,7 +192,7 @@ def funcion_interfaz_admin(interfaz_anterior,nombre_administrador):
         boton3.pack(pady=20)
         boton3 = tk.Button(interfaz_administrador, text="3. reportes", width=25, font=("Times New Roman", 10), command=lambda:administrador.ver_reporte("h"))
         boton3.pack(pady=20)
-        boton3 = tk.Button(interfaz_administrador, text="4. platos", width=25, font=("Times New Roman", 10), command=lambda:mostrar1.edicion_platos(interfaz_administrador))
+        boton3 = tk.Button(interfaz_administrador, text="4. Menú", width=25, font=("Times New Roman", 10), command=lambda:mostrar1.edicion_platos(interfaz_administrador))
         boton3.pack(pady=20)
         boton3 = tk.Button(interfaz_administrador, text="5. Empleados", width=25, font=("Times New Roman", 10), command=administrador.edicion_empleados)
         boton3.pack(pady=20)

@@ -18,9 +18,12 @@ class staff(Persona):
     def cancelar_pedido(self):
         print ("hola")
     def agregar_plato(self):
+        datos_platos=GastroSoft_principal.leer_datos("platos.json")
+        datos_categorias=GastroSoft_principal.leer_datos("categorias.json")
         def agrega():
-            datos=GastroSoft_principal.leer_datos("platos.json")
+            
             Nombre_plato = Nombre.get()
+            
             try:
                 Precio_plato = float(Precio.get())
             except ValueError:
@@ -30,14 +33,16 @@ class staff(Persona):
                 Codigo_plato = int(Codigo.get())
             except ValueError:
                 messagebox.showerror("Error", "El codigo debe ser un número válido.")
+            categoria=seleccion_categoria.get()
             if Nombre_plato and Precio_plato:
                 agregar_dato = {
                     "Nombre del plato": Nombre_plato,
                     "Precio del plato": Precio_plato,
-                    "Codigo del plato": Codigo_plato
+                    "Codigo del plato": Codigo_plato,
+                    "Categoria del plato": categoria
                 }
-                datos.append(agregar_dato)
-                GastroSoft_principal.guardar_datos(datos,"platos.json")
+                datos_platos.append(agregar_dato)
+                GastroSoft_principal.guardar_datos(datos_platos,"platos.json")
                 Nombre.delete(0, tk.END)
                 Precio.delete(0, tk.END)
                 Codigo.delete(0, tk.END)  # Limpia las entradas para agregar otro plato
@@ -47,7 +52,7 @@ class staff(Persona):
 
         interfaz_agregar = tk.Toplevel()
         interfaz_agregar.title("Ingresar")
-        interfaz_agregar.geometry("300x300")
+        interfaz_agregar.geometry("900x700")
 
         #ingresos
         tk.Label(interfaz_agregar, pady=20, text="Nombre del plato").pack()
@@ -61,6 +66,13 @@ class staff(Persona):
         tk.Label(interfaz_agregar, pady=20, text="Codigo del plato").pack()
         Codigo = tk.Entry(interfaz_agregar)
         Codigo.pack()
+
+        categorias = list({emp.get("Categoria") for emp in datos_categorias if emp.get("Categoria")})
+
+        seleccion = tk.StringVar()
+        seleccion_categoria = ttk.Combobox(interfaz_agregar, textvariable=seleccion, values=categorias, state="readonly")
+        seleccion_categoria.set("Selecciona una categoria")
+        seleccion_categoria.pack(pady=10)
 
         #boton para confirmar el ingreso
         tk.Button(interfaz_agregar, text="Agregar el plato", command=agrega).pack()
@@ -78,7 +90,7 @@ class staff(Persona):
             if codigo_plato:
                 for plato in datos:
                     if plato['Codigo del plato'] == codigo_plato:
-                        respuesta = messagebox.askyesno("Eliminar plato", f"¿Estas seguro de eliminar el plato: {plato['Nombre del plato']}, codigo:{plato['Codigo del plato']}?")
+                        respuesta = messagebox.askyesno("Eliminar plato", f"¿Estas seguro de eliminar el plato: {plato['Nombre del plato']}, codigo:{plato['Codigo del plato'],}, categoria :{plato["Categoria del plato"]}?")
                         if respuesta:
                             datos.remove(plato)
                             GastroSoft_principal.guardar_datos(datos,"platos.json")
@@ -173,7 +185,10 @@ class staff(Persona):
             from menu import menu
             mostrar=menu("hola",1)
             mostrar.mostrar_menu(interfaz_anterior)
-        
+    def Crear_categoria(self,interfaz_anterior):
+        pass
+    def Eliminar_categoria(self,interfaz_anterior):
+        pass
     
     def edicion_platos (self,interfaz_anterior):
             interfaz_anterior.withdraw()
@@ -188,6 +203,10 @@ class staff(Persona):
             boton1.pack(pady=20)
             boton4 = tk.Button(interfaz_edicion_platos, text="3. Actualizar un plato", width=25, font=("Times New Roman", 10), command=lambda:staff.editar_platos("e"))
             boton4.pack(pady=20)
+            boton5= tk.Button(interfaz_edicion_platos, text="4. Crear categoría", width=25,fount=("Times New Roman",10), command=lambda:staff.Crear_categoria(interfaz_edicion_platos))
+            boton5.pack(pady=20) 
+            boton6= tk.Button(interfaz_edicion_platos, text="5. Eliminar categoría", width=25,fount=("Times New Roman",10), command=lambda:staff.Eliminar_categoria(interfaz_edicion_platos))
+            boton6.pack(pady=20) 
             boton2 = tk.Button(interfaz_edicion_platos, text="Volver", width=25, font=("Times New Roman", 10), command=lambda:volver1(interfaz_anterior,interfaz_edicion_platos))
             boton2.pack(pady=20)
         

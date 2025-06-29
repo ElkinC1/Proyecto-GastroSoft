@@ -2,16 +2,27 @@
     {
         "Nombre del plato": "pato al horno",
         "Precio del plato": 32.0,
-        "Codigo del plato": 15
+        "Codigo del plato": 15,
+        "Categoria del plato": "Almuerzo"
     },
     {
         "Nombre del plato": "pollo al horno",
         "Precio del plato": 10.0,
-        "Codigo del plato": 123
+        "Codigo del plato": 123,
+        "Categoria del plato": "Almuerzo"
     },
     {
         "Nombre del plato": "guatita",
         "Precio del plato": 3.25,
-        "Codigo del plato": 100
+        "Codigo del plato": 100,
+        "Categoria del plato": "Almuerzo"
+    },
+    {
+        "Nombre del plato": "Pollo en salsa de champi\u00f1ones",
+        "Precio del plato": 3.0,
+        "Codigo del plato": 333,
+        "Categoria del plato": "Almuerzo"
     }
+
+    
 ]
