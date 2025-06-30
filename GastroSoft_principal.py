@@ -7,6 +7,7 @@ from PIL import Image, ImageTk
 #primercambio
 #segundocambio
 #tercercambio
+#new world
 #Manipulacion de ficheros Json
 def leer_datos(fichero):
     try:
