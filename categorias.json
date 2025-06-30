@@ -1,8 +1,11 @@
 [
     {
-        "Categoria":"Almuerzo"
-},
+        "Categoria": "Almuerzo"
+    },
     {
-        "Categoria":"Bebidas"
+        "Categoria": "Bebidas"
+    },
+    {
+        "Categoria": "Desayunos"
     }
 ]

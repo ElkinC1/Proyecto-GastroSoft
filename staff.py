@@ -3,11 +3,54 @@ import tkinter as tk
 from tkinter import messagebox
 import GastroSoft_principal
 from tkinter import ttk, messagebox
+from abc import ABC, abstractmethod
 def volver1(anterior, actual):
     GastroSoft_principal.volver(anterior,actual)
 datos=GastroSoft_principal.leer_datos("claves_ingreso.json")
 datos_platos=GastroSoft_principal.leer_datos("platos.json")
 datos_categorias=GastroSoft_principal.leer_datos("categorias.json")
+class Categoria(ABC):
+    @abstractmethod
+    def crear_plato(self, nombre, precio, codigo):
+        pass
+
+    @abstractmethod
+    def descripcion_del_plato(self):
+        pass
+
+class CategoriaGenerica(Categoria):
+    def __init__(self, nombre_categoria):
+        self.nombre_categoria = nombre_categoria
+
+    def crear_plato(self, nombre, precio, codigo):
+        return {
+            "Nombre del plato": nombre,
+            "Precio del plato": precio,
+            "Codigo del plato": codigo,
+            "Categoria del plato": self.nombre_categoria
+        }
+
+    def descripcion_del_plato(self):
+        return f"Plato de la categoría {self.nombre_categoria}"
+
+class CategoriaBebida(Categoria):
+    def __init__(self):
+        self.nombre_categoria = "Bebidas"
+
+    def crear_plato(self, nombre, precio, codigo):
+        if precio > 50:
+            raise ValueError("Las bebidas no pueden costar más de 50.")
+        return {
+            "Nombre del plato": nombre,
+            "Precio del plato": precio,
+            "Codigo del plato": codigo,
+            "Categoria del plato": self.nombre_categoria
+        }
+
+    def descripcion_del_plato(self):
+        return "Plato de la categoría Bebidas"
+
+
 class staff(Persona):
     def __init__(self,sesion, clave,usuario):
         super().__init__(sesion)
@@ -19,6 +62,8 @@ class staff(Persona):
  
     def cancelar_pedido(self):
         print ("hola")
+    #Patrones Abstrach factory y Factory Method
+    
     #Este diccionario contiene los nombres de las clases que contienen cada categoria
     global Nombres_de_categorias_en_clases
     Nombres_de_categorias_en_clases = {
@@ -26,7 +71,7 @@ class staff(Persona):
     
     # Función que inyecta la fábrica según categoría
     global Creador_de_categoria
-    def Creador_de_categoria(nombre_categoria):
+    def Creador_de_categoria(self,nombre_categoria):
         clase_factory = Nombres_de_categorias_en_clases.get(nombre_categoria)
         if clase_factory:
             return clase_factory()
@@ -34,55 +79,66 @@ class staff(Persona):
             return CategoriaGenerica(nombre_categoria)
     
     #Aqui seleccionamos la categoria para determinar que clase vamos a inyectar
-    def seleccion_categoria():
-        interfaz_edicion_platos.withdraw
-        Interfaz_seleccion_categoria = tk.Tk()
+    def seleccion_categoria(self):
+        interfaz_edicion_platos.withdraw()
+        Interfaz_seleccion_categoria = tk.Toplevel()
         Interfaz_seleccion_categoria.title("Seleccionar Categoría")
-        Interfaz_seleccion_categoria.geometry("350x250")
+        Interfaz_seleccion_categoria.geometry("600x600")
 
         tk.Label(Interfaz_seleccion_categoria, text="Seleccione una categoría:").pack(pady=10)
 
-        categorias = list({emp.get("Categoria") for emp in datos_categorias if emp.get("Categoria")})
+        categorias = list({emp.get("Categoria") for emp in datos_categorias if emp.get("Categoria")}) + ["Otro"]
 
         seleccion = tk.StringVar()
-        seleccion_categoria = ttk.Combobox(interfaz_agregar, textvariable=seleccion, values=categorias, state="readonly")
+        seleccion_categoria = ttk.Combobox(Interfaz_seleccion_categoria, textvariable=seleccion, values=categorias, state="readonly")
         seleccion_categoria.pack(pady=10)
         seleccion_categoria.set("Selecciona una categoria")
         
-
-        entrada_nueva = tk.Entry(Interfaz_seleccion_categoria)
-        entrada_nueva.pack(pady=10)
-        entrada_nueva.pack_forget()
+        texto_categoria = tk.Label(Interfaz_seleccion_categoria, text="Ingrese la nueva categoria", font=("Times New Roman", 10))
+        texto_categoria.place_forget()
+        Categoria_renueva = tk.Entry(Interfaz_seleccion_categoria)
+        Categoria_renueva.place_forget() 
 
         # Solo muestra la entrada si elige "Otro"
-        def mostrar_entrada(event):
+        def mostrar_entrada(*args):
             if seleccion.get() == "Otro":
-                entrada_nueva.pack()
+                texto_categoria.place(x="240", y="250")
+                Categoria_renueva.place(x="240",y="300")
             else:
-                entrada_nueva.pack_forget()
+                Categoria_renueva.place_forget() 
+                texto_categoria.place_forget()
 
-        seleccion_categoria.bind("<<ComboboxSelected>>", mostrar_entrada)
+        seleccion.trace_add("write", mostrar_entrada)
 
         def continuar():
             seleccionada = seleccion.get()
 
             if seleccionada == "Otro":
-                nueva = entrada_nueva.get().strip()
-                if not nueva:
+                nueva = Categoria_renueva.get().strip()
+                if not nueva.title():
                     messagebox.showerror("Error", "Ingrese una nueva categoría.")
                     return
-                fabrica = CategoriaGenerica(nueva)
+                
+                fabrica = CategoriaGenerica(nueva.title())
+                #Crea la categoria ingresada sin necesidad de tener que agregar un producto
+                nueva_categoria={"Categoria":nueva
+                                 }
+                datos_categorias.append(nueva_categoria)
+                GastroSoft_principal.guardar_datos(datos_categorias,"categorias.json")
+                messagebox.showinfo("Éxito", f"Categoría: {nueva} agregada con éxito!!")
+                Categoria_renueva.delete(0, tk.END)
+                seleccion_categoria.set("Selecciona una categoria")
             else:
-                fabrica = Creador_de_categoria(seleccionada)
+                fabrica = Creador_de_categoria("a",seleccionada)
 
-            crear_plato(fabrica)
+            crear_plato("a",fabrica,Interfaz_seleccion_categoria)
 
         tk.Button(Interfaz_seleccion_categoria, text="Continuar", command=continuar).pack(pady=10)
-        boton2 = tk.Button(interfaz_agregar, text="Volver", width=25, font=("Times New Roman", 10), command=lambda:volver1(interfaz_edicion_platos,Interfaz_seleccion_categoria))
+        boton2 = tk.Button(Interfaz_seleccion_categoria, text="Volver", width=25, font=("Times New Roman", 10), command=lambda:volver1(interfaz_edicion_platos,Interfaz_seleccion_categoria))
         boton2.pack(pady=20)
     #Aqui se ingresn los datos para crear el plato
     global crear_plato
-    def crear_plato(fabrica,interfaz_anterior):
+    def crear_plato(self,fabrica,interfaz_anterior):
         interfaz_anterior.withdraw()
         global interfaz_agregar
         interfaz_agregar = tk.Toplevel()
@@ -118,13 +174,18 @@ class staff(Persona):
 
             datos_platos.append(plato)
             GastroSoft_principal.guardar_datos(datos_platos, "platos.json")
+            datos_nuevos = "\n".join([f"{clave}: {valor}" for clave, valor in plato.items()])
+            
+            messagebox.showinfo("Éxito",f"Plato con código {codigo} actualizado correctamente:\n\n{datos_nuevos}")
+            entrada_nombre.delete(0, tk.END)
+            entrada_precio.delete(0, tk.END)
+            entrada_codigo.delete(0, tk.END)
 
-            messagebox.showinfo("Éxito", f"Plato agregado: {plato['Nombre del plato']} ({plato['Categoria del plato']})")
+        boton1 = tk.Button(interfaz_agregar, text="Crear plato", width=25, font=("Times New Roman", 10), command=lambda:agregar_plato())
+        boton1.pack(pady=20)
 
-            tk.Button(interfaz_agregar, text="Agregar Plato", command=agregar_plato).pack(pady=20)
-
-            boton2 = tk.Button(interfaz_agregar, text="Volver", width=25, font=("Times New Roman", 10), command=lambda:volver1(interfaz_anterior,interfaz_agregar))
-            boton2.pack(pady=20)
+        boton2 = tk.Button(interfaz_agregar, text="Volver", width=25, font=("Times New Roman", 10), command=lambda:volver1(interfaz_anterior,interfaz_agregar))
+        boton2.pack(pady=20)
             
 
     
@@ -234,7 +295,42 @@ class staff(Persona):
             mostrar.mostrar_menu(interfaz_anterior)
 
     def Eliminar_categoria(self):
-        pass
+        interfaz_edicion_platos.withdraw()
+        def elimina_categoria():
+            Categoria = categorias.get()
+            if Categoria:
+                    for dato in datos_categorias:
+                        if dato['Categoria'] == Categoria.title():
+                            respuesta = messagebox.askyesno("Eliminar Categoria", f"¿Estas seguro de eliminar la categoria: {dato["Categoria"]}?")
+                            if respuesta:
+                                datos_categorias.remove(dato)
+                                GastroSoft_principal.guardar_datos(datos_categorias,"categorias.json")
+                                messagebox.showinfo("Éxito", f"La categoria {Categoria} fue eliminada correctamente.")
+                                categorias.delete(0, tk.END)
+                                return
+                            else:
+                                return
+        
+                    messagebox.showerror("Error", f"La categoria {Categoria} no existe o esta escrita erroneamente.")
+            else:
+                    messagebox.showerror("Error", "Por favor, complete todos los campos.")
+
+        interfaz_eliminar_categoria = tk.Toplevel()
+        interfaz_eliminar_categoria.title("Eliminar")
+        interfaz_eliminar_categoria.geometry("300x300")
+
+        #ingresos
+        tk.Label(interfaz_eliminar_categoria, text="Ingrese la categoria:").pack(pady=5)
+        categorias=tk.Entry(interfaz_eliminar_categoria)
+        categorias.pack ()
+
+        #boton para confirmar el ingres
+        tk.Button(interfaz_eliminar_categoria, text="Eliminar categoria", command=lambda:elimina_categoria()).pack()
+
+        #boton para eliminar
+        boton2 = tk.Button(interfaz_eliminar_categoria, text="Volver", width=25, font=("Times New Roman", 10), command=lambda:volver1(interfaz_edicion_platos,interfaz_eliminar_categoria))
+        boton2.pack(pady=20)
+        
     
     def edicion_platos (self,interfaz_anterior):
             interfaz_anterior.withdraw()
@@ -243,13 +339,13 @@ class staff(Persona):
             interfaz_edicion_platos.title("GastroSoft Edicion de platos")
             interfaz_edicion_platos.geometry("700x600")
 
-            boton3 = tk.Button(interfaz_edicion_platos, text="1. Agregar un plato", width=25, font=("Times New Roman", 10), command=lambda:staff.seleccion_categoria("e"))
+            boton3 = tk.Button(interfaz_edicion_platos, text="1. Agregar", width=25, font=("Times New Roman", 10), command=lambda:staff.seleccion_categoria("a"))
             boton3.pack(pady=20)
             boton1 = tk.Button(interfaz_edicion_platos, text="2. Eliminar un plato", width=25, font=("Times New Roman", 10), command=lambda:staff.eliminar_platos("e"))
             boton1.pack(pady=20)
             boton4 = tk.Button(interfaz_edicion_platos, text="3. Actualizar un plato", width=25, font=("Times New Roman", 10), command=lambda:staff.editar_platos("e"))
             boton4.pack(pady=20)
-            boton6= tk.Button(interfaz_edicion_platos, text="5. Eliminar categoría", width=25,font=("Times New Roman",10), command=lambda:staff.Eliminar_categoria())
+            boton6= tk.Button(interfaz_edicion_platos, text="4. Eliminar categoría", width=25,font=("Times New Roman",10), command=lambda:staff.Eliminar_categoria("e"))
             boton6.pack(pady=20) 
             boton2 = tk.Button(interfaz_edicion_platos, text="Volver", width=25, font=("Times New Roman", 10), command=lambda:volver1(interfaz_anterior,interfaz_edicion_platos))
             boton2.pack(pady=20)
