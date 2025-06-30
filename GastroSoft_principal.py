@@ -5,6 +5,7 @@ from tkinter import messagebox
 import json
 from PIL import Image, ImageTk
 #primercambio
+#segundocambio
 #Manipulacion de ficheros Json
 def leer_datos(fichero):
     try:
