@@ -7,16 +7,31 @@ def volver1(anterior, actual):
     GastroSoft_principal.volver(anterior,actual)
 datos=GastroSoft_principal.leer_datos("claves_ingreso.json")
 
-class administrador(staff):
+#facade fachada para las clasese que contienen las funciones que puede realizar el administrador.
+class Administrador(staff):
     def __init__(self):
-        pass
+        self.clave=Clave()
+        self.reporte=Reporte()
+        self.editar_empleados=Editar_empleados()
+    
+    def Edicion_clave(self):
+        self.clave.editar_clave()
+    def Ver_reporte(self):
+        self.reporte.ver_reporte()
+    def Editar_empleados(self):
+        self.editar_empleados.edicion_empleados()
 
-    def editar_clave():
+#Cada clase contiene una funcion que puede realizar el administrador 
+class Clave:
+    def editar_clave(self):
         interfaz_administrador.withdraw()
         interfaz_claves=tk.Toplevel()
         interfaz_claves.title("GastroSoft Claves")
-        interfaz_administrador.geometry("700x600")
-
+        interfaz_claves.geometry("700x600")
+        for clave in datos:
+                if clave["Marcador"]=="Clave":
+                    texto_categoria = tk.Label(interfaz_claves, text=f"Clave actual: {clave["Clave"]}", font=("Times New Roman", 10))
+                    texto_categoria.pack() 
         tk.Label(interfaz_claves, pady=20, text="Nueva clave").pack()
         nueva_clave = tk.Entry(interfaz_claves)
         nueva_clave.pack()
@@ -33,21 +48,21 @@ class administrador(staff):
                     GastroSoft_principal.guardar_datos(datos,"claves_ingreso.json")
                     nueva_clave.delete(0, tk.END)
                     messagebox.showinfo("Éxito!", "nueva clave agregada correctamente.")
-
+        
         boton3 = tk.Button(interfaz_claves, text="confirmar", width=25, font=("Times New Roman", 10), command=confirmar_edicion)
         boton3.pack(pady=20)
         boton2 = tk.Button(interfaz_claves, text="Volver", width=25, font=("Times New Roman", 10), command=lambda:volver1(interfaz_administrador,interfaz_claves))
         boton2.pack(pady=20)
         
         
-
+class Reporte:
     def ver_reporte(self):
         from reporte import reporte
         mostrar2=reporte(1,"e",2,3)
         mostrar2.mostrar_reporte(interfaz_administrador)
 
-    
-    def edicion_empleados ():
+class Editar_empleados:
+    def edicion_empleados (self):
         interfaz_administrador.withdraw()
         interfaz_edicion_empleados=tk.Toplevel()
         interfaz_edicion_empleados.title("GastroSoft Edicion de empleados")
@@ -175,6 +190,7 @@ class administrador(staff):
         boton2.pack(pady=20)
         
 def funcion_interfaz_admin(interfaz_anterior,nombre_administrador):
+        admin=Administrador()
         mostrar1=staff("s","s","sa")
         global interfaz_administrador
         interfaz_anterior.withdraw()
@@ -188,13 +204,13 @@ def funcion_interfaz_admin(interfaz_anterior,nombre_administrador):
         #Botones
         boton1 = tk.Button(interfaz_administrador, text="1. Mostrar menu", width=25, font=("Times New Roman", 10), command=lambda:mostrar1.ver_menu(interfaz_administrador))
         boton1.pack(pady=20)
-        boton3 = tk.Button(interfaz_administrador, text="2. Claves", width=25, font=("Times New Roman", 10), command=administrador.editar_clave)
+        boton3 = tk.Button(interfaz_administrador, text="2. Claves", width=25, font=("Times New Roman", 10), command=admin.Edicion_clave)
         boton3.pack(pady=20)
-        boton3 = tk.Button(interfaz_administrador, text="3. reportes", width=25, font=("Times New Roman", 10), command=lambda:administrador.ver_reporte("h"))
+        boton3 = tk.Button(interfaz_administrador, text="3. reportes", width=25, font=("Times New Roman", 10), command=admin.Ver_reporte)
         boton3.pack(pady=20)
         boton3 = tk.Button(interfaz_administrador, text="4. Menú", width=25, font=("Times New Roman", 10), command=lambda:mostrar1.edicion_platos(interfaz_administrador))
         boton3.pack(pady=20)
-        boton3 = tk.Button(interfaz_administrador, text="5. Empleados", width=25, font=("Times New Roman", 10), command=administrador.edicion_empleados)
+        boton3 = tk.Button(interfaz_administrador, text="5. Empleados", width=25, font=("Times New Roman", 10), command=admin.Editar_empleados)
         boton3.pack(pady=20)
         boton2 = tk.Button(interfaz_administrador, text="6. Volver", width=25, font=("Times New Roman", 10), command=lambda:volver1(interfaz_anterior,y))
         boton2.pack(pady=20)

@@ -14,9 +14,6 @@ class Categoria(ABC):
     def crear_plato(self, nombre, precio, codigo):
         pass
 
-    @abstractmethod
-    def descripcion_del_plato(self):
-        pass
 
 class CategoriaGenerica(Categoria):
     def __init__(self, nombre_categoria):
@@ -30,16 +27,16 @@ class CategoriaGenerica(Categoria):
             "Categoria del plato": self.nombre_categoria
         }
 
-    def descripcion_del_plato(self):
-        return f"Plato de la categoría {self.nombre_categoria}"
+
 
 class CategoriaBebida(Categoria):
-    def __init__(self):
-        self.nombre_categoria = "Bebidas"
+    def __init__(self,nombre_categoria):
+        self.nombre_categoria = nombre_categoria
 
     def crear_plato(self, nombre, precio, codigo):
-        if precio > 50:
-            raise ValueError("Las bebidas no pueden costar más de 50.")
+        precio=float(precio)
+        if precio > 1:
+            raise ValueError("Las bebidas no pueden costar más de 1 un dolar.")
         return {
             "Nombre del plato": nombre,
             "Precio del plato": precio,
@@ -47,10 +44,16 @@ class CategoriaBebida(Categoria):
             "Categoria del plato": self.nombre_categoria
         }
 
-    def descripcion_del_plato(self):
-        return "Plato de la categoría Bebidas"
 
-
+    # Función que inyecta la fábrica según categoría
+class Creador_de_categorias:
+    def Creador_de_categoria(self,nombre_categoria):
+        clase_factory = Nombres_de_categorias_en_clases.get(nombre_categoria)
+        if clase_factory:
+            return clase_factory(nombre_categoria)
+        else:
+            return CategoriaGenerica(nombre_categoria)
+        
 class staff(Persona):
     def __init__(self,sesion, clave,usuario):
         super().__init__(sesion)
@@ -67,16 +70,9 @@ class staff(Persona):
     #Este diccionario contiene los nombres de las clases que contienen cada categoria
     global Nombres_de_categorias_en_clases
     Nombres_de_categorias_en_clases = {
-    "Bebidas": "CategoriaBebida"}
+    "Bebidas": CategoriaBebida}
     
-    # Función que inyecta la fábrica según categoría
-    global Creador_de_categoria
-    def Creador_de_categoria(self,nombre_categoria):
-        clase_factory = Nombres_de_categorias_en_clases.get(nombre_categoria)
-        if clase_factory:
-            return clase_factory()
-        else:
-            return CategoriaGenerica(nombre_categoria)
+
     
     #Aqui seleccionamos la categoria para determinar que clase vamos a inyectar
     def seleccion_categoria(self):
@@ -129,7 +125,7 @@ class staff(Persona):
                 Categoria_renueva.delete(0, tk.END)
                 seleccion_categoria.set("Selecciona una categoria")
             else:
-                fabrica = Creador_de_categoria("a",seleccionada)
+                fabrica = Creador_de_categorias.Creador_de_categoria("e",seleccionada)
 
             crear_plato("a",fabrica,Interfaz_seleccion_categoria)
 
@@ -289,18 +285,18 @@ class staff(Persona):
         tk.Button(interfaz_actualizar, text="Confirmar", width=25, command=actualizar_plato).pack(pady=20)
         tk.Button(interfaz_actualizar, text="Cancelar", width=25,command=lambda: volver1(interfaz_edicion_platos, interfaz_actualizar)).pack()
 
-    def ver_menu(self,interfaz_anterior):
-            from menu import menu
-            mostrar=menu("hola",1)
-            mostrar.mostrar_menu(interfaz_anterior)
+    def ver_menu(self, interfaz_anterior):
+        from menu import menu
+        mostrar=menu("hola",1)
+        mostrar.mostrar_menu(interfaz_anterior)  
 
     def Eliminar_categoria(self):
         interfaz_edicion_platos.withdraw()
         def elimina_categoria():
-            Categoria = categorias.get()
+            seleccionada = seleccion.get()
             if Categoria:
                     for dato in datos_categorias:
-                        if dato['Categoria'] == Categoria.title():
+                        if dato['Categoria'] == seleccionada:
                             respuesta = messagebox.askyesno("Eliminar Categoria", f"¿Estas seguro de eliminar la categoria: {dato["Categoria"]}?")
                             if respuesta:
                                 datos_categorias.remove(dato)
@@ -311,7 +307,7 @@ class staff(Persona):
                             else:
                                 return
         
-                    messagebox.showerror("Error", f"La categoria {Categoria} no existe o esta escrita erroneamente.")
+                    
             else:
                     messagebox.showerror("Error", "Por favor, complete todos los campos.")
 
@@ -320,9 +316,12 @@ class staff(Persona):
         interfaz_eliminar_categoria.geometry("300x300")
 
         #ingresos
-        tk.Label(interfaz_eliminar_categoria, text="Ingrese la categoria:").pack(pady=5)
-        categorias=tk.Entry(interfaz_eliminar_categoria)
-        categorias.pack ()
+        categorias = list({emp.get("Categoria") for emp in datos_categorias if emp.get("Categoria")}) + ["Otro"]
+
+        seleccion = tk.StringVar()
+        seleccion_categoria = ttk.Combobox(interfaz_eliminar_categoria, textvariable=seleccion, values=categorias, state="readonly")
+        seleccion_categoria.pack(pady=10)
+        seleccion_categoria.set("Selecciona una categoria")
 
         #boton para confirmar el ingres
         tk.Button(interfaz_eliminar_categoria, text="Eliminar categoria", command=lambda:elimina_categoria()).pack()
