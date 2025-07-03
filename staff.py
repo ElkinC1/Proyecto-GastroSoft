@@ -87,22 +87,22 @@ class staff(Persona):
 
         seleccion = tk.StringVar()
         seleccion_categoria = ttk.Combobox(Interfaz_seleccion_categoria, textvariable=seleccion, values=categorias, state="readonly")
-        seleccion_categoria.pack(pady=10)
+        seleccion_categoria.pack(pady=60)
         seleccion_categoria.set("Selecciona una categoria")
         
         texto_categoria = tk.Label(Interfaz_seleccion_categoria, text="Ingrese la nueva categoria", font=("Times New Roman", 10))
-        texto_categoria.place_forget()
+        texto_categoria.pack_forget()
         Categoria_renueva = tk.Entry(Interfaz_seleccion_categoria)
-        Categoria_renueva.place_forget() 
+        Categoria_renueva.pack_forget() 
 
         # Solo muestra la entrada si elige "Otro"
         def mostrar_entrada(*args):
             if seleccion.get() == "Otro":
-                texto_categoria.place(x="240", y="250")
-                Categoria_renueva.place(x="240",y="300")
+                texto_categoria.pack(pady=20)
+                Categoria_renueva.pack(pady=20)
             else:
-                Categoria_renueva.place_forget() 
-                texto_categoria.place_forget()
+                Categoria_renueva.pack_forget() 
+                texto_categoria.pack_forget()
 
         seleccion.trace_add("write", mostrar_entrada)
 

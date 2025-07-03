@@ -54,7 +54,7 @@ def coprincipal_2 ():
     Interfaz_clientes.state('zoomed')
 
     imagen_fondo_clientes = Image.open("Fondo2.jpg")  
-    imagen_fondo_clientes = imagen_fondo_clientes.resize((800, 700)) #Para el tamaño de la imagen
+    imagen_fondo_clientes = imagen_fondo_clientes.resize((900, 700)) #Para el tamaño de la imagen
     fondo_tk = ImageTk.PhotoImage(imagen_fondo_clientes)
 
     label_fondo = tk.Label(Interfaz_clientes, image=fondo_tk)
@@ -64,7 +64,7 @@ def coprincipal_2 ():
     Interfaz_Actual= Interfaz_clientes #Guarda la interfaz en la variable para luego poderla eliminar 
 
     titulo = tk.Label(Interfaz_clientes, text="Clientes", font=("Times New Roman", 45), background="black", fg="white")
-    titulo.pack(pady=20)
+    titulo.pack(pady=60)
 
     boton6 = tk.Button(Interfaz_clientes, text="1. Mostrar menu", width=25, font=("Times New Roman", 10), command=mostrar_como_cliente)
     boton6.pack(pady=20)
@@ -85,17 +85,29 @@ def coprincipal_1 ():
         Interfaz_Staff.geometry("1280x720")
         Interfaz_Staff.configure(background='black')
         Interfaz_Staff.state('zoomed')
+
+        
+
         titulo = tk.Label(Interfaz_Staff, text="Staff", font=("Times New Roman", 45), background="black", fg="white")
         titulo.pack(pady=20)
-       
-        # Campo para los ingresos
-        tk.Label(Interfaz_Staff, pady=20, text="Usuario").pack()
-        usuario = tk.Entry(Interfaz_Staff)
-        usuario.pack()
 
-        tk.Label(Interfaz_Staff, pady=20, text="Contraseña").pack()
+            
+       
+        imagen_usuario = Image.open("imagen_usuario.jpg").resize((30, 30)) #aqui cargas la imagen
+        imagen_usuario_tk = ImageTk.PhotoImage(imagen_usuario) #aqui le agregas la funcion para integrarla a tkinter
+        Interfaz_Staff.imagen_usuario_tk = imagen_usuario_tk
+        
+        imagen_contraseña= Image.open("imagen_contraseña.jpg").resize((30,30))
+        imagen_contraseña_tk=ImageTk.PhotoImage(imagen_contraseña)
+        Interfaz_Staff.imagen_contraseña_tk = imagen_contraseña_tk
+        # Campo para los ingresos
+        tk.Label(Interfaz_Staff, text="Usuario", image=imagen_usuario_tk, compound="left", background="#000000", fg="white").place(x="565",y="184")
+        usuario = tk.Entry(Interfaz_Staff)
+        usuario.place(x="665",y="190") 
+
+        tk.Label(Interfaz_Staff,  text="Contraseña", image=imagen_contraseña_tk,compound="left", background="#000000", fg="white").place(x="565",y="234")
         contraseña = tk.Entry(Interfaz_Staff)
-        contraseña.pack()
+        contraseña.place(x="665",y="240")
 
           # Cierra con X también vuelve
         Interfaz_Staff.protocol("WM_DELETE_WINDOW", lambda: volver(anterior, Interfaz_Staff))
@@ -132,10 +144,10 @@ def coprincipal_1 ():
 
             messagebox.showerror("Error", "Usuario no encontrado")
             
-        boton2=tk.Button(Interfaz_Staff, text="Ingresar", command=ingresar_credenciales)
-        boton2.pack(pady=20)
+        boton2=tk.Button(Interfaz_Staff, text="Ingresar", width=25, font=("Times New Roman", 10), command=ingresar_credenciales)
+        boton2.pack(pady=250)
         boton4 = tk.Button(Interfaz_Staff, text="Volver", width=25, font=("Times New Roman", 10), command=lambda:volver(anterior,Interfaz_Staff))
-        boton4.pack(pady=20)
+        boton4.place(x="590",y="415")
 principal=None
 #principal ventana
 def iniciar_principal():
