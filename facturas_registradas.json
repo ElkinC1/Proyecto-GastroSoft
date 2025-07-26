@@ -181,5 +181,145 @@
             }
         ],
         "total_con_iva": 71.68
+    },
+    {
+        "numero_factura": "FACT-00012",
+        "fecha": "2025-07-10 22:14:54",
+        "cliente": "Cliente Final",
+        "cedula": "XXXXXXX",
+        "platos": [
+            {
+                "nombre": "Pollo en salsa de champi\u00f1ones",
+                "precio": 3.0,
+                "cantidad": 1
+            }
+        ],
+        "total_con_iva": 3.36
+    },
+    {
+        "numero_factura": "FACT-00013",
+        "fecha": "2025-07-10 22:22:47",
+        "cliente": "Cliente Final",
+        "cedula": "XXXXXXX",
+        "platos": [
+            {
+                "nombre": "pato al horno",
+                "precio": 32.0,
+                "cantidad": 2
+            }
+        ],
+        "total_con_iva": 71.68
+    },
+    {
+        "numero_factura": "FACT-00014",
+        "fecha": "2025-07-10 22:47:26",
+        "cliente": "Cliente Final",
+        "cedula": "XXXXXXX",
+        "platos": [
+            {
+                "nombre": "Fresas con crema",
+                "precio": 1.5,
+                "cantidad": 1
+            }
+        ],
+        "total_con_iva": 1.68
+    },
+    {
+        "numero_factura": "FACT-00015",
+        "fecha": "2025-07-10 23:05:28",
+        "cliente": "Cliente Final",
+        "cedula": "XXXXXXX",
+        "platos": [
+            {
+                "nombre": "Jugo de limon",
+                "precio": 0.5,
+                "cantidad": 2
+            }
+        ],
+        "total_con_iva": 1.12
+    },
+    {
+        "numero_factura": "FACT-00016",
+        "fecha": "2025-07-10 23:06:14",
+        "cliente": "Cliente Final",
+        "cedula": "XXXXXXX",
+        "platos": [
+            {
+                "nombre": "Pollo en salsa de champi\u00f1ones",
+                "precio": 3.0,
+                "cantidad": 2
+            }
+        ],
+        "total_con_iva": 6.72
+    },
+    {
+        "numero_factura": "FACT-00017",
+        "fecha": "2025-07-10 23:11:19",
+        "cliente": "Cliente Final",
+        "cedula": "XXXXXXX",
+        "platos": [
+            {
+                "nombre": "Bolon",
+                "precio": 1.5,
+                "cantidad": 1
+            }
+        ],
+        "total_con_iva": 1.68
+    },
+    {
+        "numero_factura": "FACT-00018",
+        "fecha": "2025-07-10 23:15:27",
+        "cliente": "Cliente Final",
+        "cedula": "XXXXXXX",
+        "platos": [
+            {
+                "nombre": "Bolon",
+                "precio": 1.5,
+                "cantidad": 1
+            }
+        ],
+        "total_con_iva": 1.68
+    },
+    {
+        "numero_factura": "FACT-00019",
+        "fecha": "2025-07-10 23:19:36",
+        "cliente": "Cliente Final",
+        "cedula": "XXXXXXX",
+        "platos": [
+            {
+                "nombre": "Bolon",
+                "precio": 1.5,
+                "cantidad": 1
+            }
+        ],
+        "total_con_iva": 1.68
+    },
+    {
+        "numero_factura": "FACT-00020",
+        "fecha": "2025-07-10 23:27:12",
+        "cliente": "Cliente Final",
+        "cedula": "XXXXXXX",
+        "platos": [
+            {
+                "nombre": "Fresas con crema",
+                "precio": 1.5,
+                "cantidad": 1
+            }
+        ],
+        "total_con_iva": 1.68
+    },
+    {
+        "numero_factura": "FACT-00021",
+        "fecha": "2025-07-10 23:44:42",
+        "cliente": "Cliente Final",
+        "cedula": "XXXXXXX",
+        "platos": [
+            {
+                "nombre": "Pollo en salsa de champi\u00f1ones",
+                "precio": 3.0,
+                "cantidad": 1
+            }
+        ],
+        "total_con_iva": 3.36
     }
 ]

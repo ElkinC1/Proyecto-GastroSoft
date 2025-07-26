@@ -6,8 +6,7 @@ import json
 import GastroSoft_principal
 
 def volver1(anterior, actual):
-    actual.destroy()
-    anterior.deiconify()
+    GastroSoft_principal.volver(anterior, actual)
 
 class empleados(staff):
     def __init__(self, sesion, clave_ingreso, usuario):
@@ -38,17 +37,16 @@ class empleados(staff):
     def editar_plato(self):
         if self._solicitar_clave():
             messagebox.showinfo("Exito", "Clave correcta.")
-            mostrar1=staff("e","e","r")
-            mostrar1.edicion_platos(interfaz_empleado)
+            objeto_staff=staff("a","a","a")
+            objeto_staff.edicion_platos(interfaz_empleado)
 
     def realizar_pedido(self):
         # Esta función no necesita solicitar clave
         super().realizar_pedido()
-
-    def cancelar_pedido(self):
-        # Esta función no necesita solicitar clave
-        messagebox.showinfo("Acción", "Función 'cancelar_pedido' ejecutada con éxito.")
-
+    
+    def mostrar_menu(self):
+        objeto_staff=staff("a","a","a")
+        objeto_staff.ver_menu(interfaz_empleado)
 
 def funcion_interfaz_de_empleado(interfaz_anterior,usuario):
         global interfaz_empleado
@@ -69,8 +67,8 @@ def funcion_interfaz_de_empleado(interfaz_anterior,usuario):
         boton_realizar_pedido = tk.Button(interfaz_empleado, text="2. Realizar pedido", width=25, font=("Times New Roman", 10), command=empleado_instancia.realizar_pedido)
         boton_realizar_pedido.pack(pady=20)
 
-        boton_cancelar_pedido = tk.Button(interfaz_empleado, text="3. Cancelar pedido", width=25, font=("Times New Roman", 10), command=empleado_instancia.cancelar_pedido)
-        boton_cancelar_pedido.pack(pady=20)
+        boton_menu = tk.Button(interfaz_empleado, text="3. Ver menu", width=25, font=("Times New Roman", 10), command=empleado_instancia.mostrar_menu)
+        boton_menu.pack(pady=20)
         
         boton2 = tk.Button(interfaz_empleado, text="4. Volver", width=25, font=("Times New Roman", 10), command=lambda:volver1(interfaz_anterior,interfaz_empleado))
         boton2.pack(pady=20)

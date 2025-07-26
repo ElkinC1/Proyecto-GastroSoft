@@ -208,5 +208,18 @@
         ],
         "total_sin_iva": 64.0,
         "iva_porcentaje": 12
+    },
+    {
+        "numero_pedido": 16,
+        "fecha": "2025-07-10 21:50:53",
+        "platos_seleccionados": [
+            {
+                "nombre": "pato al horno",
+                "precio": 32.0,
+                "cantidad": 2
+            }
+        ],
+        "total_sin_iva": 64.0,
+        "iva_porcentaje": 12
     }
 ]

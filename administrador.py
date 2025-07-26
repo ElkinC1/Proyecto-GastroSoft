@@ -3,9 +3,11 @@ from staff import staff
 import GastroSoft_principal
 from tkinter import messagebox
 from tkinter import ttk
+from PIL import Image, ImageTk
 def volver1(anterior, actual):
     GastroSoft_principal.volver(anterior,actual)
 datos=GastroSoft_principal.leer_datos("claves_ingreso.json")
+
 
 #facade fachada para las clasese que contienen las funciones que puede realizar el administrador.
 class Administrador(staff):
@@ -20,6 +22,7 @@ class Administrador(staff):
         self.reporte.ver_reporte()
     def Editar_empleados(self):
         self.editar_empleados.edicion_empleados()
+
 
 #Cada clase contiene una funcion que puede realizar el administrador 
 class Clave:
@@ -191,29 +194,58 @@ class Editar_empleados:
         
 def funcion_interfaz_admin(interfaz_anterior,nombre_administrador):
         admin=Administrador()
-        mostrar1=staff("s","s","sa")
+        objeto_staff=staff("a","a","a")
         global interfaz_administrador
         interfaz_anterior.withdraw()
         interfaz_administrador=tk.Toplevel()
         interfaz_administrador.title("GastroSoft Administrador")
-        interfaz_administrador.geometry("700x600")
+        interfaz_administrador.geometry("900x600")
         y=interfaz_administrador
-        
-        label = tk.Label(interfaz_administrador, text=f"Hola {nombre_administrador}", font=("Times New Roman", 25), bg='black', fg='white')
-        label.pack(pady=50)
-        #Botones
-        boton1 = tk.Button(interfaz_administrador, text="1. Mostrar menu", width=25, font=("Times New Roman", 10), command=lambda:mostrar1.ver_menu(interfaz_administrador))
-        boton1.pack(pady=20)
-        boton3 = tk.Button(interfaz_administrador, text="2. Claves", width=25, font=("Times New Roman", 10), command=admin.Edicion_clave)
-        boton3.pack(pady=20)
-        boton3 = tk.Button(interfaz_administrador, text="3. reportes", width=25, font=("Times New Roman", 10), command=admin.Ver_reporte)
-        boton3.pack(pady=20)
-        boton3 = tk.Button(interfaz_administrador, text="4. Menú", width=25, font=("Times New Roman", 10), command=lambda:mostrar1.edicion_platos(interfaz_administrador))
-        boton3.pack(pady=20)
-        boton3 = tk.Button(interfaz_administrador, text="5. Empleados", width=25, font=("Times New Roman", 10), command=admin.Editar_empleados)
-        boton3.pack(pady=20)
-        boton2 = tk.Button(interfaz_administrador, text="6. Volver", width=25, font=("Times New Roman", 10), command=lambda:volver1(interfaz_anterior,y))
-        boton2.pack(pady=20)
-        # Cierra con X también vuelve
-        interfaz_administrador.protocol("WM_DELETE_WINDOW", lambda: volver1(interfaz_anterior, y))    
+        y.state('zoomed')
 
+        label = tk.Label(interfaz_administrador, text=f"Bienvenido administrador {nombre_administrador}", font=("Times New Roman", 25), bg='white', fg='black')
+        label.pack(pady=50)
+        
+        barra_lateral = tk.Frame(interfaz_administrador, bg="#2D6A4F", width=250)
+        barra_lateral.pack(side="left", fill="y",anchor="nw")
+
+        imagen_original = Image.open("interfaz_Administrador.png")
+        imagen_redimensionada = imagen_original.resize((120, 120))  # Ajusta tamaño si hace falta
+        imagen_tk = ImageTk.PhotoImage(imagen_redimensionada)
+
+        label_imagen = tk.Label(barra_lateral, image=imagen_tk, bg="#2D6A4F", bd=0)
+        label_imagen.image = imagen_tk
+        label_imagen.pack(side="top", anchor="n", pady=0, padx=0)  # Asegura que esté bien arriba
+
+        contenido = tk.Frame(interfaz_administrador, bg="#EDEDED")
+        contenido.pack(side="right", fill="both", expand=True)
+
+        frame_botones = tk.Frame(interfaz_administrador)
+        frame_botones.pack()
+
+        boton1 = tk.Button(frame_botones, text="1. Mostrar menú", width=25, font=("Times New Roman", 10),
+                        command=lambda: objeto_staff.ver_menu(interfaz_administrador))
+        boton1.grid(row=0, column=0, padx=10, pady=10)
+
+        boton2 = tk.Button(frame_botones, text="2. Claves", width=25, font=("Times New Roman", 10),
+                        command=admin.Edicion_clave)
+        boton2.grid(row=0, column=1, padx=10, pady=10)
+
+        boton3 = tk.Button(frame_botones, text="3. Reportes", width=25, font=("Times New Roman", 10),
+                        command=admin.Ver_reporte)
+        boton3.grid(row=0, column=2, padx=10, pady=10)
+
+        boton4 = tk.Button(frame_botones, text="4. Menú", width=25, font=("Times New Roman", 10),
+                        command=lambda: objeto_staff.edicion_platos(interfaz_administrador))
+        boton4.grid(row=1, column=0, padx=10, pady=10)
+
+        boton5 = tk.Button(frame_botones, text="5. Empleados", width=25, font=("Times New Roman", 10),
+                        command=admin.Editar_empleados)
+        boton5.grid(row=1, column=1, padx=10, pady=10)
+
+        boton6 = tk.Button(frame_botones, text="6. Volver", width=25, font=("Times New Roman", 10),
+                        command=lambda: volver1(interfaz_anterior, y))
+        boton6.grid(row=1, column=2, padx=10, pady=10)
+
+        # Cerrar con la X también vuelve
+        interfaz_administrador.protocol("WM_DELETE_WINDOW", lambda: volver1(interfaz_anterior, y))

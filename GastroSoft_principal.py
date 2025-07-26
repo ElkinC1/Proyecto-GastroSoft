@@ -4,10 +4,7 @@ import tkinter as tk
 from tkinter import messagebox
 import json
 from PIL import Image, ImageTk
-#primercambio
-#segundocambio
-#tercercambio
-#new world
+
 #Manipulacion de ficheros Json
 def leer_datos(fichero):
     try:
@@ -83,13 +80,19 @@ def coprincipal_1 ():
         Interfaz_Staff = tk.Toplevel()
         Interfaz_Staff.title("GastroSoft")
         Interfaz_Staff.geometry("1280x720")
-        Interfaz_Staff.configure(background='black')
+        Interfaz_Staff.configure(background="#DCDCDC")
         Interfaz_Staff.state('zoomed')
 
-        
+        imagen_fondo = Image.open("fondo_staff.jpeg")  
+        imagen_fondo = imagen_fondo.resize((800, 700)) #Para el tamaño de la imagen
+        fondo_tk = ImageTk.PhotoImage(imagen_fondo)
 
-        titulo = tk.Label(Interfaz_Staff, text="Staff", font=("Times New Roman", 45), background="black", fg="white")
-        titulo.pack(pady=20)
+        label_fondo = tk.Label(Interfaz_Staff, image=fondo_tk)
+        label_fondo.image = fondo_tk  
+        label_fondo.pack(side="top") #Alinea la imagen a la izquierda    """    
+
+        titulo = tk.Label(Interfaz_Staff, text="Staff", font=("Times New Roman", 45), background="#EDEAEA",fg="black")
+        titulo.place(x="620",y="20")
 
             
        
@@ -101,13 +104,13 @@ def coprincipal_1 ():
         imagen_contraseña_tk=ImageTk.PhotoImage(imagen_contraseña)
         Interfaz_Staff.imagen_contraseña_tk = imagen_contraseña_tk
         # Campo para los ingresos
-        tk.Label(Interfaz_Staff, text="Usuario", image=imagen_usuario_tk, compound="left", background="#000000", fg="white").place(x="565",y="184")
+        tk.Label(Interfaz_Staff, text="Usuario", image=imagen_usuario_tk, compound="left", background="#000000", fg="white").place(x="565",y="174")
         usuario = tk.Entry(Interfaz_Staff)
-        usuario.place(x="665",y="190") 
+        usuario.place(x="665",y="180") 
 
-        tk.Label(Interfaz_Staff,  text="Contraseña", image=imagen_contraseña_tk,compound="left", background="#000000", fg="white").place(x="565",y="234")
+        tk.Label(Interfaz_Staff,  text="Contraseña", image=imagen_contraseña_tk,compound="left", background="#000000", fg="white").place(x="565",y="224")
         contraseña = tk.Entry(Interfaz_Staff)
-        contraseña.place(x="665",y="240")
+        contraseña.place(x="665",y="230")
 
           # Cierra con X también vuelve
         Interfaz_Staff.protocol("WM_DELETE_WINDOW", lambda: volver(anterior, Interfaz_Staff))
@@ -145,7 +148,7 @@ def coprincipal_1 ():
             messagebox.showerror("Error", "Usuario no encontrado")
             
         boton2=tk.Button(Interfaz_Staff, text="Ingresar", width=25, font=("Times New Roman", 10), command=ingresar_credenciales)
-        boton2.pack(pady=250)
+        boton2.place(x="590",y="380")
         boton4 = tk.Button(Interfaz_Staff, text="Volver", width=25, font=("Times New Roman", 10), command=lambda:volver(anterior,Interfaz_Staff))
         boton4.place(x="590",y="415")
 principal=None
@@ -174,15 +177,15 @@ def iniciar_principal():
     # Permite ubicas los botones encima de la imagen
     imagen_icono = Image.open("trabajadores.jpeg").resize((110, 100)) #aqui cargas la imagen
     imagen_icono_tk = ImageTk.PhotoImage(imagen_icono) #aqui le agregas la funcion para integrarla a tkinter
-    boton1 = tk.Button(principal, text="1. Trabajadores", image=imagen_icono_tk, compound="top", font=("Times New Roman", 12),bg="#002031", fg="white", command=coprincipal_1)
+    boton1 = tk.Button(principal, text="Trabajadores", image=imagen_icono_tk, compound="top", font=("Times New Roman", 12),bg="#002031", fg="white", command=coprincipal_1)
     boton1.place(x=920, y=200)
 
     imagen_icono1 = Image.open("cliente.jpeg").resize((110, 100))
     imagen_icono_tk1 = ImageTk.PhotoImage(imagen_icono1)
-    boton = tk.Button(principal, text="2. Clientes", image=imagen_icono_tk1, compound="top", font=("Times New Roman", 12),bg="#002031", fg="white",command=coprincipal_2)  
+    boton = tk.Button(principal, text="Clientes", image=imagen_icono_tk1, compound="top", font=("Times New Roman", 12),bg="#002031", fg="white",command=coprincipal_2)  
     boton.place(x=1120, y=200)
 
-    boton3 = tk.Button(principal, text="3. Cerrar aplicación", width=25, font=("Times New Roman", 12),bg="#002031", fg="white", command=salir)
+    boton3 = tk.Button(principal, text="Cerrar aplicación", width=25, font=("Times New Roman", 12),bg="#002031", fg="white", command=salir)
     boton3.place(x=980, y=400)
 
     principal.mainloop()

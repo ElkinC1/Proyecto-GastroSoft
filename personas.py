@@ -1,15 +1,10 @@
 from abc import ABC, abstractmethod
 
-class Persona(ABC):
+class Persona():
     def __init__(self, sesion):
         self.sesion=sesion
 
-    @abstractmethod
     def realizar_pedido(self):
-        pass
-
-    @abstractmethod
-    def cancelar_pedido(self):
         pass
     
     @abstractmethod
