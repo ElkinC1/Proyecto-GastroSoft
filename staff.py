@@ -4,6 +4,7 @@ from tkinter import messagebox
 import GastroSoft_principal
 from tkinter import ttk, messagebox
 from abc import ABC, abstractmethod
+from PIL import Image, ImageTk
 def volver1(anterior, actual):
     GastroSoft_principal.volver(anterior,actual)
 datos=GastroSoft_principal.leer_datos("claves_ingreso.json")
@@ -99,8 +100,9 @@ class Seleccion_categoria():
         Interfaz_seleccion_categoria = tk.Toplevel()
         Interfaz_seleccion_categoria.title("Seleccionar Categoría")
         Interfaz_seleccion_categoria.geometry("600x600")
+        Interfaz_seleccion_categoria.state('zoomed')
 
-        tk.Label(Interfaz_seleccion_categoria, text="Seleccione una categoría:").pack(pady=10)
+        tk.Label(Interfaz_seleccion_categoria, text="Seleccione una categoría:", font=("Arial Black", 17,"bold")).pack(pady=10)
 
         categorias = list({emp.get("Categoria") for emp in datos_categorias if emp.get("Categoria")}) + ["Otro"]
 
@@ -145,21 +147,29 @@ class Seleccion_categoria():
                 seleccion_categoria.set("Selecciona una categoria")
             else:
                 fabrica = Creador_de_categorias.Creador_de_categoria("e",seleccionada)
-            creacion=Crear_plato()
+            creacion=Crear_plato
             creacion.crear_plato("a",fabrica,Interfaz_seleccion_categoria)
 
         tk.Button(Interfaz_seleccion_categoria, text="Continuar", command=continuar).pack(pady=10)
-        boton2 = tk.Button(Interfaz_seleccion_categoria, text="Volver", width=25, font=("Times New Roman", 10), command=lambda:volver1(interfaz_edicion_platos,Interfaz_seleccion_categoria))
-        boton2.pack(pady=20)
+        #boton para eliminar
+        interfaz_Actual=Interfaz_seleccion_categoria
+        icono_volver = Image.open("image.png").resize((60, 50))
+        imagen_volver = ImageTk.PhotoImage(icono_volver)
+        interfaz_Actual.imagen_volver = ImageTk.PhotoImage(icono_volver)
+        boton6 = tk.Button(interfaz_Actual,text="Volver",image=interfaz_Actual.imagen_volver,compound="top",font=("Times New Roman", 10),fg="white",command=lambda: volver1(interfaz_edicion_platos, interfaz_Actual))
+
+        esquina = interfaz_Actual.winfo_screenheight()
+        boton6.place(x=50, y=esquina - 150)
+
 class Crear_plato():
     #Aqui se ingresn los datos para crear el plato
-    global crear_plato
     def crear_plato(self,fabrica,interfaz_anterior):
         interfaz_anterior.withdraw()
         global interfaz_agregar
         interfaz_agregar = tk.Toplevel()
         interfaz_agregar.title("Agregar Plato")
         interfaz_agregar.geometry("400x400")
+        interfaz_agregar.state('zoomed')
 
         tk.Label(interfaz_agregar, text="Nombre del plato").pack()
         entrada_nombre = tk.Entry(interfaz_agregar)
@@ -200,8 +210,15 @@ class Crear_plato():
         boton1 = tk.Button(interfaz_agregar, text="Crear plato", width=25, font=("Times New Roman", 10), command=lambda:agregar_plato())
         boton1.pack(pady=20)
 
-        boton2 = tk.Button(interfaz_agregar, text="Volver", width=25, font=("Times New Roman", 10), command=lambda:volver1(interfaz_anterior,interfaz_agregar))
-        boton2.pack(pady=20)
+        #boton para eliminar
+        interfaz_Actual=interfaz_agregar
+        icono_volver = Image.open("image.png").resize((60, 50))
+        imagen_volver = ImageTk.PhotoImage(icono_volver)
+        interfaz_Actual.imagen_volver = ImageTk.PhotoImage(icono_volver)
+        boton6 = tk.Button(interfaz_Actual,text="Volver",image=interfaz_Actual.imagen_volver,compound="top",font=("Times New Roman", 10),fg="white",command=lambda: volver1(interfaz_edicion_platos, interfaz_Actual))
+
+        esquina = interfaz_Actual.winfo_screenheight()
+        boton6.place(x=50, y=esquina - 150)
             
 
 class Eliminar_platos(): 
@@ -214,7 +231,10 @@ class Eliminar_platos():
             if codigo_plato:
                 for plato in datos:
                     if plato['Codigo del plato'] == codigo_plato:
-                        respuesta = messagebox.askyesno("Eliminar plato", f"¿Estas seguro de eliminar el plato: {plato['Nombre del plato']}, codigo:{plato['Codigo del plato'],}, categoria :{plato["Categoria del plato"]}?")
+                        respuesta = messagebox.askyesno(
+                            "Eliminar plato",
+                            f"¿Estas seguro de eliminar el plato: {plato['Nombre del plato']}, codigo: {plato['Codigo del plato']}, categoria: {plato['Categoria del plato']}?"
+                        )
                         if respuesta:
                             datos.remove(plato)
                             GastroSoft_principal.guardar_datos(datos,"platos.json")
@@ -229,6 +249,7 @@ class Eliminar_platos():
         interfaz_eliminar = tk.Toplevel()
         interfaz_eliminar.title("Eliminar")
         interfaz_eliminar.geometry("300x300")
+        interfaz_eliminar.state('zoomed')
 
         #ingresos
         tk.Label(interfaz_eliminar, text="Ingrese el codigo del plato:").pack(pady=5)
@@ -239,9 +260,14 @@ class Eliminar_platos():
         tk.Button(interfaz_eliminar, text="Eliminar el plato", command=elimina).pack()
 
         #boton para eliminar
-        
-        boton2 = tk.Button(interfaz_eliminar, text="Volver", width=25, font=("Times New Roman", 10), command=lambda:volver1(interfaz_edicion_platos,interfaz_eliminar))
-        boton2.pack(pady=20)
+        interfaz_Actual=interfaz_eliminar
+        icono_volver = Image.open("image.png").resize((60, 50))
+        imagen_volver = ImageTk.PhotoImage(icono_volver)
+        interfaz_Actual.imagen_volver = ImageTk.PhotoImage(icono_volver)
+        boton6 = tk.Button(interfaz_Actual,text="Volver",image=interfaz_Actual.imagen_volver,compound="top",font=("Times New Roman", 10),fg="white",command=lambda: volver1(interfaz_edicion_platos, interfaz_Actual))
+
+        esquina = interfaz_Actual.winfo_screenheight()
+        boton6.place(x=50, y=esquina - 150)
         
         
 
@@ -253,6 +279,7 @@ class Editar_platos():
         interfaz_actualizar = tk.Toplevel()
         interfaz_actualizar.title("GastroSoft - Actualizar Plato")
         interfaz_actualizar.geometry("600x500")
+        interfaz_actualizar.state('zoomed')
 
         # Etiqueta y entrada para el código del plato
         tk.Label(interfaz_actualizar, pady=10, text="Código del Plato").pack()
@@ -317,26 +344,26 @@ class Eliminar_categoria():
         interfaz_edicion_platos.withdraw()
         def elimina_categoria():
             seleccionada = seleccion.get()
-            if Categoria:
-                    for dato in datos_categorias:
-                        if dato['Categoria'] == seleccionada:
-                            respuesta = messagebox.askyesno("Eliminar Categoria", f"¿Estas seguro de eliminar la categoria: {dato["Categoria"]}?")
-                            if respuesta:
-                                datos_categorias.remove(dato)
-                                GastroSoft_principal.guardar_datos(datos_categorias,"categorias.json")
-                                messagebox.showinfo("Éxito", f"La categoria {Categoria} fue eliminada correctamente.")
-                                categorias.delete(0, tk.END)
-                                return
-                            else:
-                                return
-        
-                    
+            if seleccionada:
+                for dato in datos_categorias:
+                    if dato['Categoria'] == seleccionada:
+                        respuesta = messagebox.askyesno("Eliminar Categoria", f"¿Estas seguro de eliminar la categoria: {dato['Categoria']}?")
+                        if respuesta:
+                            datos_categorias.remove(dato)
+                            GastroSoft_principal.guardar_datos(datos_categorias,"categorias.json")
+                            messagebox.showinfo("Éxito", f"La categoria {seleccionada} fue eliminada correctamente.")
+                            categorias.delete(0, tk.END)
+                            return
+                        else:
+                            return
             else:
-                    messagebox.showerror("Error", "Por favor, complete todos los campos.")
+                messagebox.showerror("Error", "Por favor, complete todos los campos.")
+
 
         interfaz_eliminar_categoria = tk.Toplevel()
         interfaz_eliminar_categoria.title("Eliminar")
         interfaz_eliminar_categoria.geometry("300x300")
+        interfaz_eliminar_categoria.state('zoomed')
 
         #ingresos
         categorias = list({emp.get("Categoria") for emp in datos_categorias if emp.get("Categoria")}) + ["Otro"]
@@ -350,8 +377,15 @@ class Eliminar_categoria():
         tk.Button(interfaz_eliminar_categoria, text="Eliminar categoria", command=lambda:elimina_categoria()).pack()
 
         #boton para eliminar
-        boton2 = tk.Button(interfaz_eliminar_categoria, text="Volver", width=25, font=("Times New Roman", 10), command=lambda:volver1(interfaz_edicion_platos,interfaz_eliminar_categoria))
-        boton2.pack(pady=20)
+        interfaz_Actual=interfaz_eliminar_categoria
+        icono_volver = Image.open("image.png").resize((60, 50))
+        imagen_volver = ImageTk.PhotoImage(icono_volver)
+        interfaz_Actual.imagen_volver = ImageTk.PhotoImage(icono_volver)
+        boton6 = tk.Button(interfaz_Actual,text="Volver",image=interfaz_Actual.imagen_volver,compound="top",font=("Times New Roman", 10),fg="white",command=lambda: volver1(interfaz_edicion_platos, interfaz_Actual))
+
+        esquina = interfaz_Actual.winfo_screenheight()
+        boton6.place(x=50, y=esquina - 150)
+            
         
 class Edicion_platos(): 
     def edicion_platos_logica (self,interfaz_anterior):
@@ -360,18 +394,34 @@ class Edicion_platos():
             interfaz_edicion_platos=tk.Toplevel()
             interfaz_edicion_platos.title("GastroSoft Edicion de platos")
             interfaz_edicion_platos.geometry("700x600")
+            interfaz_edicion_platos.state('zoomed')
+
+            texto = tk.Label(interfaz_edicion_platos, text=f"EDICION DE PLATOS", font=("Arial Black", 19,"bold"),fg="white", bg="#B73939")
+            texto.pack(pady=50) 
+
+            barra_lateral_derecha = tk.Frame(interfaz_edicion_platos, bg="#B73939", width=250)
+            barra_lateral_derecha.pack(side="left", fill="both", expand=True)
+
+            barra_lateral_izquierda = tk.Frame(interfaz_edicion_platos, bg="#B73939", width=250)
+            barra_lateral_izquierda.pack(side="right", fill="both", expand=True)
 
             objeto_staff=staff("a","a","a")
 
             boton3 = tk.Button(interfaz_edicion_platos, text="1. Agregar", width=25, font=("Times New Roman", 10), command=lambda:objeto_staff.seleccion_categoria())
-            boton3.pack(pady=20)
+            boton3.pack(pady=20,padx=100)
             boton1 = tk.Button(interfaz_edicion_platos, text="2. Eliminar un plato", width=25, font=("Times New Roman", 10), command=lambda:objeto_staff.eliminar_platos())
-            boton1.pack(pady=20)
+            boton1.pack(pady=20,padx=100)
             boton4 = tk.Button(interfaz_edicion_platos, text="3. Actualizar un plato", width=25, font=("Times New Roman", 10), command=lambda:objeto_staff.editar_platos())
-            boton4.pack(pady=20)
-            boton6= tk.Button(interfaz_edicion_platos, text="4. Eliminar categoría", width=25,font=("Times New Roman",10), command=lambda:objeto_staff.eliminar_categoria())
-            boton6.pack(pady=20) 
-            boton2 = tk.Button(interfaz_edicion_platos, text="Volver", width=25, font=("Times New Roman", 10), command=lambda:volver1(interfaz_anterior,interfaz_edicion_platos))
-            boton2.pack(pady=20)
-        
+            boton4.pack(pady=20,padx=100)
+            boton5= tk.Button(interfaz_edicion_platos, text="4. Eliminar categoría", width=25,font=("Times New Roman",10), command=lambda:objeto_staff.eliminar_categoria())
+            boton5.pack(pady=20,padx=100) 
+            interfaz_Actual=interfaz_edicion_platos
+            icono_volver = Image.open("image.png").resize((60, 50))
+            imagen_volver = ImageTk.PhotoImage(icono_volver)
+            interfaz_Actual.imagen_volver = ImageTk.PhotoImage(icono_volver)
+            boton6 = tk.Button(interfaz_Actual,text="Volver",image=interfaz_Actual.imagen_volver,compound="top",font=("Times New Roman", 10),fg="white",command=lambda: volver1(interfaz_anterior, interfaz_Actual))
+
+            esquina = interfaz_Actual.winfo_screenheight()
+            boton6.place(x=50, y=esquina - 150)
+            
     

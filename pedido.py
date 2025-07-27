@@ -1,38 +1,35 @@
+
+
 import tkinter as tk
 from tkinter import messagebox
-import json
-import uuid
-from datetime import datetime
+from orden_pago import OrdenPago
 
 class Pedido:
     def __init__(self, platos):
-        self.id = str(uuid.uuid4())
-        self.fecha = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        self.platos = platos  # lista de dicts con nombre, precio y cantidad
+        self.platos = platos
 
     def calcular_total(self):
         return sum(p["precio"] * p["cantidad"] for p in self.platos)
 
     def resumen(self):
-        resumen = f"Pedido ID: {self.id}\nFecha: {self.fecha}\n\n"
-        for p in self.platos:
-            subtotal = p["precio"] * p["cantidad"]
-            resumen += f"{p['nombre']} x{p['cantidad']} = ${subtotal:.2f}\n"
-        resumen += f"\nTOTAL: ${self.calcular_total():.2f}"
-        return resumen
+        resumen = "\n".join(
+            f"{p['nombre']} x{p['cantidad']} = ${p['precio'] * p['cantidad']:.2f}"
+            for p in self.platos
+        )
+        total = self.calcular_total()
+        return f"{resumen}\n\nTOTAL: ${total:.2f}"
 
     @staticmethod
     def crear_interfaz(callback_confirmacion):
-        try:
-            with open('platos.json', 'r') as file:
-                platos = json.load(file)
-        except FileNotFoundError:
-            messagebox.showerror("Error", "No hay platos disponibles.")
-            return
-
-        if not platos:
-            messagebox.showerror("Error", "No hay platos disponibles.")
-            return
+        platos = [
+            {"Nombre del plato": "pato al horno", "Precio del plato": 32.0, "Codigo del plato": 1, "Categoria del plato": "Almuerzo"},
+            {"Nombre del plato": "pollo al horno", "Precio del plato": 10.0, "Codigo del plato": 2, "Categoria del plato": "Almuerzo"},
+            {"Nombre del plato": "guatita", "Precio del plato": 3.25, "Codigo del plato": 3, "Categoria del plato": "Almuerzo"},
+            {"Nombre del plato": "Pollo en salsa de champiñones", "Precio del plato": 3.0, "Codigo del plato": 4, "Categoria del plato": "Almuerzo"},
+            {"Nombre del plato": "Jugo de limon", "Precio del plato": 0.5, "Codigo del plato": 5, "Categoria del plato": "Bebidas"},
+            {"Nombre del plato": "Bolon", "Precio del plato": 1.5, "Codigo del plato": 6, "Categoria del plato": "Desayunos"},
+            {"Nombre del plato": "Fresas con crema", "Precio del plato": 1.5, "Codigo del plato": 48, "Categoria del plato": "Postres"}
+        ]
 
         ventana_pedido = tk.Toplevel()
         ventana_pedido.title("Realizar Pedido")
@@ -74,7 +71,9 @@ class Pedido:
                 return
 
             ventana_pedido.destroy()
-            callback_confirmacion(seleccion)
+            comprobante = OrdenPago(seleccion, callback_confirmacion)
+            comprobante.generar()
 
-        tk.Button(ventana_pedido, text="Confirmar pedido", command=confirmar_pedido,
+        tk.Button(ventana_pedido, text="Confirmar orden", command=confirmar_pedido,
                   bg="green", fg="white", font=("Arial", 12)).pack(pady=20)
+        ventana_pedido.mainloop()

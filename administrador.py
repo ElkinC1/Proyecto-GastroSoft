@@ -31,11 +31,21 @@ class Clave:
         interfaz_claves=tk.Toplevel()
         interfaz_claves.title("GastroSoft Claves")
         interfaz_claves.geometry("700x600")
+        interfaz_claves.state('zoomed')
+
+
+
         for clave in datos:
                 if clave["Marcador"]=="Clave":
-                    texto_categoria = tk.Label(interfaz_claves, text=f"Clave actual: {clave["Clave"]}", font=("Times New Roman", 10))
-                    texto_categoria.pack() 
-        tk.Label(interfaz_claves, pady=20, text="Nueva clave").pack()
+                    texto_categoria = tk.Label(interfaz_claves, text=f"CLAVE ACTUAL: {clave["Clave"]}", font=("Arial Black", 17,"bold"),fg="white", bg="#97B2F6")
+                    texto_categoria.pack(pady=50) 
+                    barra_lateral_derecha = tk.Frame(interfaz_claves, bg="#97B2F6", width=250)
+                    barra_lateral_derecha.pack(side="left", fill="both", expand=True)
+
+                    barra_lateral_izquierda = tk.Frame(interfaz_claves, bg="#97B2F6", width=250)
+                    barra_lateral_izquierda.pack(side="right", fill="both", expand=True)
+
+        tk.Label(interfaz_claves, pady=20,padx=60, text="Nueva clave").pack()
         nueva_clave = tk.Entry(interfaz_claves)
         nueva_clave.pack()
 
@@ -47,15 +57,25 @@ class Clave:
                     except ValueError:
                         messagebox.showerror("Error, ingreso de datos erroneo")
                         return
-                    clave["Clave"]=clave_nueva
-                    GastroSoft_principal.guardar_datos(datos,"claves_ingreso.json")
-                    nueva_clave.delete(0, tk.END)
-                    messagebox.showinfo("Éxito!", "nueva clave agregada correctamente.")
+                    if clave_nueva.isdigit() and clave_nueva != "":
+                        clave["Clave"]=clave_nueva
+                        GastroSoft_principal.guardar_datos(datos,"claves_ingreso.json")
+                        nueva_clave.delete(0, tk.END)
+                        messagebox.showinfo("Éxito!", "nueva clave agregada correctamente.")
+                    else:
+                        messagebox.showerror("Error!","Ingreso de datos no valido")
         
         boton3 = tk.Button(interfaz_claves, text="confirmar", width=25, font=("Times New Roman", 10), command=confirmar_edicion)
-        boton3.pack(pady=20)
-        boton2 = tk.Button(interfaz_claves, text="Volver", width=25, font=("Times New Roman", 10), command=lambda:volver1(interfaz_administrador,interfaz_claves))
-        boton2.pack(pady=20)
+        boton3.pack(pady=20,padx=60)
+        interfaz_Actual=interfaz_claves
+        icono_volver = Image.open("image.png").resize((60, 50))
+        imagen_volver = ImageTk.PhotoImage(icono_volver)
+        interfaz_Actual.imagen_volver = ImageTk.PhotoImage(icono_volver)
+        boton6 = tk.Button(interfaz_Actual,text="Volver",image=interfaz_Actual.imagen_volver,compound="top",font=("Times New Roman", 10),fg="white",command=lambda: volver1(interfaz_administrador, interfaz_Actual)
+)
+
+        esquina = interfaz_Actual.winfo_screenheight()
+        boton6.place(x=50, y=esquina - 150)
         
         
 class Reporte:
@@ -70,12 +90,23 @@ class Editar_empleados:
         interfaz_edicion_empleados=tk.Toplevel()
         interfaz_edicion_empleados.title("GastroSoft Edicion de empleados")
         interfaz_edicion_empleados.geometry("700x600")
+        interfaz_edicion_empleados.state('zoomed')
+    
+        texto = tk.Label(interfaz_edicion_empleados, text=f"EDICION DE EMPLEADOS", font=("Arial Black", 17,"bold"),fg="white", bg="#9DF8AC")
+        texto.pack(pady=50) 
+
+        barra_lateral_derecha = tk.Frame(interfaz_edicion_empleados, bg="#9DF8AC", width=250)
+        barra_lateral_derecha.pack(side="left", fill="both", expand=True)
+
+        barra_lateral_izquierda = tk.Frame(interfaz_edicion_empleados, bg="#9DF8AC", width=250)
+        barra_lateral_izquierda.pack(side="right", fill="both", expand=True)
 
         def agregar_empleados():
             interfaz_edicion_empleados.withdraw()
             interfaz_agregar_empleados=tk.Toplevel()
             interfaz_agregar_empleados.title("GastroSoft Edicion de empleados")
             interfaz_agregar_empleados.geometry("600x500")
+            interfaz_agregar_empleados.state('zoomed')
             
             tk.Label(interfaz_agregar_empleados, pady=20, text="Usuario").pack()
             Usuario_nuevo = tk.Entry(interfaz_agregar_empleados)
@@ -115,13 +146,14 @@ class Editar_empleados:
                    
             boton1 = tk.Button(interfaz_agregar_empleados, text="Confirmar", width=25, font=("Times New Roman", 10), command=agrega_empleados)
             boton1.pack(pady=20)
-            boton2 = tk.Button(interfaz_agregar_empleados, text="Cancelar", width=25, font=("Times New Roman", 10), command=lambda:volver1(interfaz_edicion_empleados,interfaz_agregar_empleados))
+            boton2 = tk.Button(interfaz_agregar_empleados, text="Cancelar", width=25, font=("Times New Roman", 10), command=lambda:volver1(interfaz_administrador,interfaz_Actual))
             boton2.pack(pady=20)
         def editar_empleados():
             interfaz_edicion_empleados.withdraw()
             interfaz_editar_empleados = tk.Toplevel()
             interfaz_editar_empleados.title("GastroSoft Edición de empleados")
             interfaz_editar_empleados.geometry("600x500")
+            interfaz_editar_empleados.state('zoomed')
 
             # Combobox de seleccióm
             seleccion = tk.StringVar()
@@ -178,19 +210,26 @@ class Editar_empleados:
                 messagebox.showerror("Error", "Empleado no válido.")
 
             # Botones
-            tk.Button(interfaz_editar_empleados, text="Cargar datos", command=cargar_info).pack(pady=5)
-            tk.Button(interfaz_editar_empleados, text="Guardar cambios", command=guardar_cambios).pack(pady=5)
-            tk.Button(interfaz_editar_empleados, text="Eliminar usuario", command=eliminar_empleado).pack(pady=5)
+            tk.Button(interfaz_editar_empleados, text="Cargar datos", command=cargar_info).pack(pady=15,padx=20)
+            tk.Button(interfaz_editar_empleados, text="Guardar cambios", command=guardar_cambios).pack(pady=15,padx=20)
+            tk.Button(interfaz_editar_empleados, text="Eliminar usuario", command=eliminar_empleado).pack(pady=15,padx=20)
             boton2 = tk.Button(interfaz_editar_empleados, text="Cancelar", width=25, font=("Times New Roman", 10),
                             command=lambda: volver1(interfaz_edicion_empleados, interfaz_editar_empleados))
             boton2.pack(pady=20)
 
         boton3 = tk.Button(interfaz_edicion_empleados, text="1. Agregar un empleado", width=25, font=("Times New Roman", 10), command=agregar_empleados)
-        boton3.pack(pady=20)
+        boton3.pack(pady=20,padx=60)
         boton1 = tk.Button(interfaz_edicion_empleados, text="2. Editar un empleado", width=25, font=("Times New Roman", 10), command=editar_empleados)
-        boton1.pack(pady=20)
-        boton2 = tk.Button(interfaz_edicion_empleados, text="Volver", width=25, font=("Times New Roman", 10), command=lambda:volver1(interfaz_administrador,interfaz_edicion_empleados))
-        boton2.pack(pady=20)
+        boton1.pack(pady=20,padx=60)
+        interfaz_Actual=interfaz_edicion_empleados
+        icono_volver = Image.open("image.png").resize((60, 50))
+        imagen_volver = ImageTk.PhotoImage(icono_volver)
+        interfaz_Actual.imagen_volver = ImageTk.PhotoImage(icono_volver)
+        boton6 = tk.Button(interfaz_Actual,text="Volver",image=interfaz_Actual.imagen_volver,compound="top",font=("Times New Roman", 10),fg="white",command=lambda: volver1(interfaz_administrador, interfaz_Actual)
+)
+
+        esquina = interfaz_Actual.winfo_screenheight()
+        boton6.place(x=50, y=esquina - 150)
         
 def funcion_interfaz_admin(interfaz_anterior,nombre_administrador):
         admin=Administrador()
@@ -203,49 +242,48 @@ def funcion_interfaz_admin(interfaz_anterior,nombre_administrador):
         y=interfaz_administrador
         y.state('zoomed')
 
-        label = tk.Label(interfaz_administrador, text=f"Bienvenido administrador {nombre_administrador}", font=("Times New Roman", 25), bg='white', fg='black')
+        label = tk.Label(interfaz_administrador, text=f"BIENVENIDO ADMINISTRADOR {nombre_administrador}", font=("Arial Black", 25,"bold"), fg='#B73939')
         label.pack(pady=50)
         
-        barra_lateral = tk.Frame(interfaz_administrador, bg="#2D6A4F", width=250)
-        barra_lateral.pack(side="left", fill="y",anchor="nw")
+        barra_lateral_derecha = tk.Frame(interfaz_administrador, bg="#D97B7B", width=250)
+        barra_lateral_derecha.pack(side="left", fill="both", expand=True)
 
-        imagen_original = Image.open("interfaz_Administrador.png")
-        imagen_redimensionada = imagen_original.resize((120, 120))  # Ajusta tamaño si hace falta
-        imagen_tk = ImageTk.PhotoImage(imagen_redimensionada)
-
-        label_imagen = tk.Label(barra_lateral, image=imagen_tk, bg="#2D6A4F", bd=0)
-        label_imagen.image = imagen_tk
-        label_imagen.pack(side="top", anchor="n", pady=0, padx=0)  # Asegura que esté bien arriba
-
-        contenido = tk.Frame(interfaz_administrador, bg="#EDEDED")
-        contenido.pack(side="right", fill="both", expand=True)
+        barra_lateral_izquierda = tk.Frame(interfaz_administrador, bg="#D97B7B", width=250)
+        barra_lateral_izquierda.pack(side="right", fill="both", expand=True)
 
         frame_botones = tk.Frame(interfaz_administrador)
         frame_botones.pack()
 
         boton1 = tk.Button(frame_botones, text="1. Mostrar menú", width=25, font=("Times New Roman", 10),
                         command=lambda: objeto_staff.ver_menu(interfaz_administrador))
-        boton1.grid(row=0, column=0, padx=10, pady=10)
+        boton1.grid(row=0, column=0, padx=20, pady=100)
 
         boton2 = tk.Button(frame_botones, text="2. Claves", width=25, font=("Times New Roman", 10),
                         command=admin.Edicion_clave)
-        boton2.grid(row=0, column=1, padx=10, pady=10)
+        boton2.grid(row=0, column=1, padx=20, pady=100)
 
         boton3 = tk.Button(frame_botones, text="3. Reportes", width=25, font=("Times New Roman", 10),
                         command=admin.Ver_reporte)
-        boton3.grid(row=0, column=2, padx=10, pady=10)
+        boton3.grid(row=0, column=2, padx=20, pady=100)
 
         boton4 = tk.Button(frame_botones, text="4. Menú", width=25, font=("Times New Roman", 10),
                         command=lambda: objeto_staff.edicion_platos(interfaz_administrador))
-        boton4.grid(row=1, column=0, padx=10, pady=10)
+        boton4.grid(row=1, column=0, padx=20, pady=20)
 
         boton5 = tk.Button(frame_botones, text="5. Empleados", width=25, font=("Times New Roman", 10),
                         command=admin.Editar_empleados)
-        boton5.grid(row=1, column=1, padx=10, pady=10)
+        boton5.grid(row=1, column=1, padx=20, pady=20)
 
-        boton6 = tk.Button(frame_botones, text="6. Volver", width=25, font=("Times New Roman", 10),
-                        command=lambda: volver1(interfaz_anterior, y))
-        boton6.grid(row=1, column=2, padx=10, pady=10)
+        interfaz_Actual=interfaz_administrador
+        icono_volver = Image.open("image.png").resize((60, 50))
+        imagen_volver = ImageTk.PhotoImage(icono_volver)
+        interfaz_Actual.imagen_volver = ImageTk.PhotoImage(icono_volver)
+        boton6 = tk.Button(interfaz_Actual,text="Volver",image=interfaz_Actual.imagen_volver,compound="top",font=("Times New Roman", 10),fg="white",command=lambda: volver1(interfaz_anterior, interfaz_administrador)
+)
+
+        esquina = interfaz_Actual.winfo_screenheight()
+        boton6.place(x=50, y=esquina - 150)
+
 
         # Cerrar con la X también vuelve
         interfaz_administrador.protocol("WM_DELETE_WINDOW", lambda: volver1(interfaz_anterior, y))

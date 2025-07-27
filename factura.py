@@ -1,9 +1,10 @@
+
 import tkinter as tk
 from tkinter import messagebox
-import json
 from datetime import datetime
+import uuid
 
-class factura():
+class Factura:
     def __init__(self, datos_cliente, platos_pedido, iva_porcentaje):
         self.datos_cliente = datos_cliente
         self.platos_pedido = platos_pedido
@@ -13,7 +14,14 @@ class factura():
         self.total_con_iva = self.total_sin_iva + self.iva_calculado
         self.fecha_factura = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         self.numero_factura = self._generar_numero_factura()
-        self._guardar_registro_factura() # Nueva línea para guardar el registro
+        self._guardar_registro_factura()
+
+    def _generar_numero_factura(self):
+        return str(uuid.uuid4())[:8]
+
+    def _guardar_registro_factura(self):
+        # Aquí podrías guardar en JSON, base de datos, etc.
+        pass
 
     def _calcular_total_sin_iva(self):
         total = 0
@@ -23,40 +31,6 @@ class factura():
             except TypeError:
                 total += 0
         return total
-
-    def _generar_numero_factura(self):
-        try:
-            with open('facturas_contador.json', 'r') as f:
-                contador = json.load(f)
-        except (FileNotFoundError, json.JSONDecodeError):
-            contador = {"ultimo_numero": 0}
-        
-        contador["ultimo_numero"] += 1
-        
-        with open('facturas_contador.json', 'w') as f:
-            json.dump(contador, f)
-            
-        return f"FACT-{contador['ultimo_numero']:05d}"
-
-    def _guardar_registro_factura(self):
-        try:
-            with open('facturas_registradas.json', 'r') as f:
-                registros = json.load(f)
-        except (FileNotFoundError, json.JSONDecodeError):
-            registros = []
-        
-        registro_actual = {
-            "numero_factura": self.numero_factura,
-            "fecha": self.fecha_factura,
-            "cliente": self.datos_cliente.get('nombre', 'Cliente Final'),
-            "cedula": self.datos_cliente.get('cedula', 'N/A'),
-            "platos": self.platos_pedido,
-            "total_con_iva": self.total_con_iva
-        }
-        registros.append(registro_actual)
-        
-        with open('facturas_registradas.json', 'w') as f:
-            json.dump(registros, f, indent=4)
 
     def visualizar_factura(self):
         ventana_factura = tk.Toplevel()
@@ -116,7 +90,3 @@ class factura():
 
         tk.Button(ventana_factura, text="Descargar Factura", command=descargar_factura_txt).pack(pady=10)
         tk.Button(ventana_factura, text="Cerrar", command=ventana_factura.destroy).pack(pady=5)
-        ventana_factura.mainloop()
-
-    def decargar_factura(self):
-        pass

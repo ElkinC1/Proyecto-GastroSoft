@@ -1,0 +1,111 @@
+[
+    {
+        "numero_pedido": 1,
+        "fecha": "2025-07-27 00:07:40",
+        "platos_seleccionados": [
+            {
+                "nombre": "pollo al horno",
+                "precio": 9.0,
+                "cantidad": 1
+            }
+        ],
+        "total_sin_iva": 9.0,
+        "iva_porcentaje": 12
+    },
+    {
+        "numero_pedido": 2,
+        "fecha": "2025-07-27 00:10:10",
+        "platos_seleccionados": [
+            {
+                "nombre": "Jugo de limon",
+                "precio": 0.45,
+                "cantidad": 1
+            }
+        ],
+        "total_sin_iva": 0.45,
+        "iva_porcentaje": 12
+    },
+    {
+        "numero_pedido": 3,
+        "fecha": "2025-07-27 00:31:03",
+        "platos_seleccionados": [
+            {
+                "nombre": "Jugo de limon",
+                "precio": 0.45,
+                "cantidad": 1
+            }
+        ],
+        "total_sin_iva": 0.45,
+        "iva_porcentaje": 12
+    },
+    {
+        "numero_pedido": 4,
+        "fecha": "2025-07-27 01:09:37",
+        "platos_seleccionados": [
+            {
+                "nombre": "Pollo en salsa de champi\u00f1ones",
+                "precio": 2.7,
+                "cantidad": 1
+            }
+        ],
+        "total_sin_iva": 2.7,
+        "iva_porcentaje": 12
+    },
+    {
+        "numero_pedido": 5,
+        "fecha": "2025-07-27 01:21:00",
+        "platos_seleccionados": [
+            {
+                "nombre": "Jugo de limon",
+                "precio": 0.45,
+                "cantidad": 1
+            }
+        ],
+        "total_sin_iva": 0.45,
+        "iva_porcentaje": 12
+    },
+    {
+        "numero_pedido": 6,
+        "fecha": "2025-07-27 09:26:43",
+        "platos_seleccionados": [
+            {
+                "nombre": "pato al horno",
+                "precio": 28.8,
+                "cantidad": 2
+            }
+        ],
+        "total_sin_iva": 57.6,
+        "iva_porcentaje": 12
+    },
+    {
+        "numero_pedido": 7,
+        "fecha": "2025-07-27 09:29:34",
+        "platos_seleccionados": [
+            {
+                "nombre": "Jugo de limon",
+                "precio": 0.5,
+                "cantidad": 1
+            },
+            {
+                "nombre": "Bolon",
+                "precio": 1.5,
+                "cantidad": 3
+            }
+        ],
+        "total_sin_iva": 5.0,
+        "iva_porcentaje": 12
+    },
+    {
+        "numero_pedido": 8,
+        "fecha": "2025-07-27 13:17:25",
+        "platos_seleccionados": [
+            {
+                "nombre": "guatita",
+                "precio": 3.0875,
+                "cantidad": 1
+            }
+        ],
+        "total_sin_iva": 3.0875,
+        "iva_porcentaje": 12
+    }
+]

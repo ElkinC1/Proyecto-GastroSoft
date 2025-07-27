@@ -321,5 +321,19 @@
             }
         ],
         "total_con_iva": 3.36
+    },
+    {
+        "numero_factura": "FACT-00022",
+        "fecha": "2025-07-26 23:17:22",
+        "cliente": "Cliente Final",
+        "cedula": "XXXXXXX",
+        "platos": [
+            {
+                "nombre": "guatita",
+                "precio": 3.25,
+                "cantidad": 1
+            }
+        ],
+        "total_con_iva": 3.64
     }
 ]

@@ -1,15 +1,15 @@
 import tkinter as tk
 from tkinter import messagebox
 import json
-from clientes import clientes
-from factura import factura
+from clientes import Clientes 
+from factura import Factura 
 
-class cdatos(clientes):
+class cdatos(Clientes): # Heredando de Clientes
     def __init__(self, sesion=None, nombre=None, cedula=None, direccion=None, correo=None):
         super().__init__(sesion, nombre, cedula, direccion, correo)
 
     def mostrar_interfaz_ingreso_datos(self, pedido_info=None):
-        import GastroSoft_principal
+        import GastroSoft_principal # Mantener esta importación aquí si solo se usa dentro de esta función
         interfaz_datos_cliente = tk.Toplevel()
         interfaz_datos_cliente.title("Registro de Datos del Cliente")
         interfaz_datos_cliente.geometry("500x400")
@@ -66,10 +66,8 @@ class cdatos(clientes):
             messagebox.showinfo("Éxito", "Datos del cliente guardados correctamente.")
             
             if pedido_info:
-                factura_instancia = factura(datos_cliente_a_guardar, pedido_info.get('platos_seleccionados', []), pedido_info.get('iva_porcentaje', 0))
+                factura_instancia = Factura(datos_cliente_a_guardar, pedido_info.get('platos_seleccionados', []), pedido_info.get('iva_porcentaje', 0)) # Nombre de clase corregido
                 factura_instancia.visualizar_factura()
-
-
 
         tk.Button(interfaz_datos_cliente, text="Guardar Datos", command=guardar_datos_cliente).pack(pady=20)
         tk.Button(interfaz_datos_cliente, text="Volver", command=interfaz_datos_cliente.destroy).pack(pady=5)

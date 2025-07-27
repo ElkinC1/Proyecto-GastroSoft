@@ -1,5 +1,4 @@
 #primer cambio
-from clientes import clientes
 import tkinter as tk
 from tkinter import messagebox
 import json
@@ -19,9 +18,11 @@ def guardar_datos(datos,fichero):
 
 
 #mostrar el menu desde la vista de un cliente
-def mostrar_como_cliente ():
-    mostrar1= clientes("h","a",1,"s","d")
-    mostrar1.ver_menu(Interfaz_clientes) #retorna la interfaz a la clase cliente
+def mostrar_como_cliente():
+    from menu import menu 
+    mostrar1 = menu("", 0.0)  # puedes usar datos vacíos o cargarlos si es necesario
+    mostrar1.mostrar_menu(Interfaz_clientes)
+
 def salir():
     principal.destroy()
 
@@ -30,12 +31,10 @@ def volver (Interfaz_Anterior,Interfaz_Actual):
         Interfaz_Anterior.deiconify()
         Interfaz_Anterior.state('zoomed') #permite que la ventana anterior se maximize al momento de volver a aparecer
 def realizar_pedido():
-    from pedido import Pedido
-    from clientes import clientes
-    
-    temp_cliente_instance = clientes("a","a","a","a","a")
-    
-    Pedido.crear_interfaz(temp_cliente_instance._post_pedido_acciones)
+    from clientes import Clientes
+    temp_cliente_instance = Clientes()  # sin datos aún
+    temp_cliente_instance.realizar_pedido()
+
 
 #Ventana para los clientes
 def coprincipal_2 ():
@@ -149,8 +148,15 @@ def coprincipal_1 ():
             
         boton2=tk.Button(Interfaz_Staff, text="Ingresar", width=25, font=("Times New Roman", 10), command=ingresar_credenciales)
         boton2.place(x="590",y="380")
-        boton4 = tk.Button(Interfaz_Staff, text="Volver", width=25, font=("Times New Roman", 10), command=lambda:volver(anterior,Interfaz_Staff))
-        boton4.place(x="590",y="415")
+        interfaz_Actual=Interfaz_Staff
+        icono_volver = Image.open("image.png").resize((60, 50))
+        imagen_volver = ImageTk.PhotoImage(icono_volver)
+        interfaz_Actual.imagen_volver = ImageTk.PhotoImage(icono_volver)
+        boton6 = tk.Button(interfaz_Actual,text="Volver",image=interfaz_Actual.imagen_volver,compound="top",font=("Times New Roman", 10),fg="white",command=lambda: volver(principal, interfaz_Actual)
+)
+
+        esquina = interfaz_Actual.winfo_screenheight()
+        boton6.place(x=50, y=esquina - 150)
 principal=None
 #principal ventana
 def iniciar_principal():
@@ -162,7 +168,7 @@ def iniciar_principal():
     principal.state('zoomed')
 
     # Cargar imagen de fondo
-    imagen_fondo = Image.open("Fondo_principal.jpg")  
+    imagen_fondo = Image.open("Fondo_principal.JPG")  
     imagen_fondo = imagen_fondo.resize((800, 700)) #Para el tamaño de la imagen
     fondo_tk = ImageTk.PhotoImage(imagen_fondo)
 
