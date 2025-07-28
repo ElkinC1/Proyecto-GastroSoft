@@ -58,15 +58,33 @@ class Creador_de_categorias:
         
 class staff(Persona):
     def __init__(self,sesion, clave,usuario):
-        self.sesion=sesion
-        self.clave=clave
-        self.usuario=usuario
+        self.__sesion=sesion
+        self.__clave=clave
+        self.__usuario=usuario
         self.Seleccion_categoria=Seleccion_categoria()
         self.Eliminar_platos=Eliminar_platos()
         self.Editar_platos=Editar_platos()
         self.Ver_menu=Ver_menu()
         self.ELiminar_categoria=Eliminar_categoria()
         self.Edicion_platos=Edicion_platos()
+
+    @property
+    def sesion(self):
+        return self.__sesion    
+    
+    @property
+    def clave(self):
+        return self.__clave
+    
+    @clave.setter
+    def clave(self, nueva_clave):
+        self.__clave = nueva_clave
+    
+    @property
+    def usuario(self):
+        return self.__usuario
+    
+
     def seleccion_categoria(self):
         self.Seleccion_categoria.seleccion_categoria_logica()
     def eliminar_platos(self):

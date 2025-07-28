@@ -3,11 +3,31 @@ import tkinter as tk
 from pedido import Pedido
 class Clientes:
     def __init__(self, sesion=None, nombre=None, cedula=None, direccion=None, correo=None):
-        self.sesion = sesion
-        self.nombre = nombre
-        self.cedula = cedula
-        self.direccion = direccion
-        self.correo = correo
+        self.__sesion = sesion
+        self.__nombre = nombre
+        self.__cedula = cedula
+        self.__direccion = direccion
+        self.__correo = correo
+
+    @property
+    def sesion(self):
+        return self.__sesion
+    
+    @property
+    def nombre(self):
+        return self.__nombre
+    
+    @property
+    def cedula(self):
+        return self.__cedula
+    
+    @property
+    def direccion(self):
+        return self.__direccion
+    
+    @property
+    def correo(self):
+        return self.__correo
 
     def realizar_pedido(self):
         Pedido.crear_interfaz(self._post_pedido_acciones)
